@@ -27,3 +27,12 @@ export const projects = [
         id: 2
     },
 ];
+
+export const words = [
+    '', // This line gets ignored in production mode.
+    'Full Stack Developer',
+    'Software Engineer',
+    'UI/UX Designer',
+    'Open Source Contributor',
+    'Cat Lover',
+];

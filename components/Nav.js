@@ -47,7 +47,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Portfolio
+          FirePlank
         </Text>
       </Flex>
       {LinkItems.map((link, index) => (
@@ -104,16 +104,16 @@ const NavWithSidebar = () => {
       <Box h={16} width="full">
         <Box mt="3" mr="4" float="right">
           <a href="https://github.com/FirePlank" target="_blank" rel="noopener noreferrer">
-            <Button leftIcon={<FaGithub />} mr="1rem">
+            <Button leftIcon={<FaGithub />} mr="1rem" aria-label="github button">
               Github
             </Button>
           </a>
           <a href="https://twitter.com/FirePlank" target="_blank" rel="noopener noreferrer">
-            <Button colorScheme='twitter' leftIcon={<FaTwitter />} mr="1rem">
+            <Button colorScheme='twitter' leftIcon={<FaTwitter />} mr="1rem" aria-label="twitter button">
               Twitter
             </Button>
           </a>
-          <Button onClick={toggleColorMode}>
+          <Button onClick={toggleColorMode} aria-label="change theme button">
               {colorMode === 'light' ? <BsMoonFill /> : <BsSun />}
           </Button>
         </Box>
@@ -137,15 +137,15 @@ const Nav = () => {
         </HStack>
 
         <Flex alignItems={'center'}>
-        <Button leftIcon={<FaGithub />} mr="1rem">
+        <Button leftIcon={<FaGithub />} mr="1rem" aria-label="github button">
             Github
           </Button>
           <a href="https://twitter.com/FirePlank" target="_blank" rel="noopener noreferrer">
-            <Button colorScheme='twitter' leftIcon={<FaTwitter />} mr="1rem">
+            <Button colorScheme='twitter' leftIcon={<FaTwitter />} mr="1rem" aria-label="twitter button">
               Twitter
             </Button>
           </a>
-          <Button onClick={toggleColorMode}>
+          <Button onClick={toggleColorMode} aria-label="change theme button">
               {colorMode === 'light' ? <BsMoonFill /> : <BsSun />}
           </Button>
         </Flex>

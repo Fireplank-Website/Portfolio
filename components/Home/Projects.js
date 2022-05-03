@@ -45,8 +45,8 @@ const Project = ({ project }) => {
             'linear-gradient(270deg, #13ADC7 0%, #945DD6 100%)'}
             />
             <Text
-                width={"100%"}
-                padding=".3rem"
+                width={"90%"}
+                margin="1rem"
                 opacity={0.8}
                 fontStyle="2rem"
                 lineHeight={"24px"}

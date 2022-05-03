@@ -34,7 +34,7 @@ const Technologies = () => {
                 flexDirection="column"
                 >
                     <Icon as={DiReact} w="3rem" h="3rem"/>
-                    <Text className="list-title">FrontEnd</Text>
+                    <Text className="list-title">Frontend</Text>
                     <Text className="list-paragraph">
                         Experience with React, Next.js and more
                     </Text>
@@ -46,7 +46,7 @@ const Technologies = () => {
                 flexDirection="column"
                 >
                     <Icon as={DiDatabase} w="3rem" h="3rem"/>
-                    <Text className="list-title">BackEnd</Text>
+                    <Text className="list-title">Backend</Text>
                     <Text className="list-paragraph">
                         Experience with Node, Postgres, MySQL, MongoDB and more
                     </Text>
