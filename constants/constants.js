@@ -36,3 +36,9 @@ export const words = [
     'Open Source Contributor',
     'Cat Lover',
 ];
+
+export const TimeLineData = [
+    { year: 2020, text: 'Started my journey', },
+    { year: 2021, text: 'Worked as a freelance developer', },
+    { year: 2022, text: 'Shared my projects with the world', },
+];

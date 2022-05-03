@@ -3,8 +3,8 @@ import {
   Flex,
   HStack,
   Icon,
-  useColorModeValue,
   Link,
+  useColorModeValue,
   Text,
   Button,
   useColorMode,
@@ -13,7 +13,7 @@ import { BsMoonFill, BsSun, BsInfoCircle } from 'react-icons/bs';
 import { FaProjectDiagram, FaGithub, FaTwitter } from 'react-icons/fa';
 import { MdBiotech } from 'react-icons/md';
 import styles from '../styles/Nav.module.css';
-
+import NextLink from 'next/link';
 const LinkItems = [
   { name: 'Projects', icon: FaProjectDiagram, path: '#projects' },
   { name: 'Technologies', icon: MdBiotech, path: '#tech' },
@@ -93,7 +93,7 @@ const NavItem = ({ icon, children, ...rest }) => {
 const NavWithSidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <Box bg={useColorModeValue('gray.100', 'gray.900')} boxShadow='lg'>
+    <Box bg={useColorModeValue('gray.100', 'gray.900')} boxShadow='lg' width="100%">
       <SidebarContent
         position="fixed"
         zIndex={998}

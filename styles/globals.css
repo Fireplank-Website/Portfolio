@@ -6,6 +6,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  width: 100%;
 }
 
 a {
@@ -18,14 +19,12 @@ a {
 }
 
 .section {
-
   display: flex;
   flex-direction: column;
   max-width: 65rem;
   box-sizing: content-box;
   position: relative;
   grid-template-columns: 1fr 1fr;
-  width: calc(100vw - 32px);
   flex-direction: column;
 }
 

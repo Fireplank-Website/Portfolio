@@ -5,7 +5,7 @@ import { AiFillQuestionCircle } from "react-icons/ai"
 
 const Technologies = () => {
   return (
-    <Box className="section" id="tech" maxW={"90%"} ml={{ base: 'none', md: '11rem' }}>
+    <Box className="section" id="tech" maxW={"90%"} ml={{ base: 'none', md: '11rem' }} mb="2rem">
         <Box className="section-container">
             <Heading
                 fontSize={["2.5rem", "3rem", "3.5rem"]}
@@ -76,7 +76,6 @@ const Technologies = () => {
                     </Text>
                 </Box>
             </Grid>
-            
         </Box>
     </Box>
   )

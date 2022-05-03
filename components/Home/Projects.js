@@ -82,11 +82,9 @@ const Projects = () => {
         <Box className="section" id="projects" maxW={"90%"} ml={{ base: 'none', md: '11rem' }}>
             <Box className="section-container">
                 <Heading
-                    fontSize={["2.5rem", "3rem", "3.5rem"]}
-                    lineHeight={["2.5rem", "3rem", "3.5rem"]}
-                    className="section-header"
-                    mb="2rem"
-                >
+                fontSize={["2.5rem", "3rem", "3.5rem"]}
+                lineHeight={["2.5rem", "3rem", "3.5rem"]}
+                className="section-header">
                     Projects
                 </Heading>
             </Box>

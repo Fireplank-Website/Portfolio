@@ -5,9 +5,12 @@ import {
     Text,
     Link,
     useColorModeValue,
-    Button
+    Button,
+    IconButton
   } from '@chakra-ui/react';
-  import { useRouter } from 'next/router';
+
+import { useRouter } from 'next/router';
+import { AiOutlineMail } from 'react-icons/ai';
 
 export default function Footer() {
     const router = useRouter();
@@ -30,7 +33,10 @@ export default function Footer() {
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}>
           <Stack direction={'row'} spacing={6}>
-            <Button variant={"ghost"} onClick={() => window.location = "/"}>Home</Button>
+            <Button variant={"ghost"} _hover={{ bg: 'gray.700', color: 'white' }} aria-label="home button" onClick={() => window.location = "/"}>Home</Button>
+            <a href="mailto:contact@fireplank.xyz">
+              <Button variant={"ghost"} leftIcon={<AiOutlineMail/>}>Contact</Button>
+            </a>
           </Stack>
           <Text>© 2022 FirePlank. All rights reserved</Text>
         </Container>

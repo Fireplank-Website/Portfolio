@@ -1,14 +1,13 @@
 import { Box } from '@chakra-ui/react'
 import Head from 'next/head'
 
-
 export default function Home() {
   return (
-    <Box>
+    <Box >
       <Head>
-        <title>Home - Portfolio</title>
+        <title>Home - FirePlank</title>
         <meta property="og:url" content="https://www.fireplank.xyz/" />
-        <meta property="og:type" content="portfolio" />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content="FirePlank&apos;s Website" />
         <meta property="fb:app_id" content="xyz.fireplank.www" />
         <meta name="twitter:card" content="summary" />

@@ -29,19 +29,19 @@ const Hero = () => {
       }, [])
 
     return (
-        <Box className="section" ml={{ base: 'none', md: '11rem' }}>
+        <Box className="section" ml={{ base: 'none', md: '11rem' }} width={{ base: 'none', md: '90%' }}>
             <Box className="section-container">
                 <Heading
                     fontSize={["2.5rem", "3rem", "3.5rem"]}
-                    whiteSpace={"nowrap"}
                     lineHeight={["2.5rem", "3rem", "3.5rem"]}
                     className="section-header"
+                    whiteSpace="nowrap"
                 >
                     Hi! I&apos;m a<br />
                     <Heading as="span"
                     fontWeight={800}
                     fontFamily={["monospace"]}
-                    fontSize={["1.9rem", "2.0rem", "2.25rem", "2.5rem", "3rem", "3.5rem"]}
+                    fontSize={["1.5rem", "2.0rem", "2.25rem", "2.5rem", "3rem", "3.5rem"]}
                     lineHeight={["2.5rem", "3rem", "3.5rem"]}
                     bgGradient='linear-gradient(270deg, #00DBD8 0%, #B133FF 100%)'
                     transition={"0.5 ease"}
