@@ -137,9 +137,11 @@ const Nav = () => {
         </HStack>
 
         <Flex alignItems={'center'}>
-        <Button leftIcon={<FaGithub />} mr="1rem" aria-label="github button">
-            Github
-          </Button>
+          <a href="https://github.com/FirePlank" target="_blank" rel="noopener noreferrer">
+            <Button leftIcon={<FaGithub />} mr="1rem" aria-label="github button">
+              Github
+            </Button>
+          </a>
           <a href="https://twitter.com/FirePlank" target="_blank" rel="noopener noreferrer">
             <Button colorScheme='twitter' leftIcon={<FaTwitter />} mr="1rem" aria-label="twitter button">
               Twitter
