@@ -9,6 +9,7 @@ import SectionDivider from './Home/SectionDivider';
 import Projects from './Home/Projects';
 import Technologies from './Home/Technologies';
 import TimeLine from './Home/TimeLine';
+import Contact from './Home/Contact';
 
 const Layout = ({children}) => {
     const router = useRouter();
@@ -20,7 +21,9 @@ const Layout = ({children}) => {
         <SectionDivider key="divider2"/>,
         <Technologies key="tech"/>,
         <SectionDivider key="divider3"/>,
-        <TimeLine key="timeline"/>
+        <TimeLine key="timeline" />,
+        <SectionDivider key="divider4"/>,
+        <Contact key="contact"/>
     ] : <></>;
 
     return (

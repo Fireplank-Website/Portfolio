@@ -13,11 +13,11 @@ import { BsMoonFill, BsSun, BsInfoCircle } from 'react-icons/bs';
 import { FaProjectDiagram, FaGithub, FaTwitter } from 'react-icons/fa';
 import { MdBiotech } from 'react-icons/md';
 import styles from '../styles/Nav.module.css';
-import NextLink from 'next/link';
 const LinkItems = [
   { name: 'Projects', icon: FaProjectDiagram, path: '#projects' },
   { name: 'Technologies', icon: MdBiotech, path: '#tech' },
   { name: 'About', icon: BsInfoCircle, path: '#about' },
+  { name: 'Contact', icon: BsInfoCircle, path: '#contact' },
 ];
 
 const NavLink = ({ children, href }) => (

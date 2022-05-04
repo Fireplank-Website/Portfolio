@@ -29,7 +29,7 @@ export const projects = [
 ];
 
 export const words = [
-    '', // This line gets ignored in production mode.
+    '', // This line gets ignored in production mode and is necessary for the layout of the site to not snap when loading for the first time.
     'Full Stack Developer',
     'Software Engineer',
     'UI/UX Designer',
@@ -38,7 +38,8 @@ export const words = [
 ];
 
 export const TimeLineData = [
-    { year: 2020, text: 'Started my journey', },
+    { year: 2019, text: 'Started my journey', },
+    { year: 2020, text: 'Shared my projects with the world', },
     { year: 2021, text: 'Worked as a freelance developer', },
-    { year: 2022, text: 'Shared my projects with the world', },
+    { year: 2022, text: 'Participated in coding competitions and worked in teams', },
 ];
