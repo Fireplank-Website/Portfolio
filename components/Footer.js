@@ -35,7 +35,7 @@ export default function Footer() {
           <Stack direction={'row'} spacing={6}>
             <Button variant={"ghost"} _hover={{ bg: 'gray.700', color: 'white' }} aria-label="home button" onClick={() => window.location = "/"}>Home</Button>
             <a href="mailto:contact@fireplank.xyz">
-              <Button variant={"ghost"} leftIcon={<AiOutlineMail/>}>Contact</Button>
+              <Button variant={"ghost"} _hover={{ bg: 'gray.700', color: 'white' }} leftIcon={<AiOutlineMail/>}>Contact</Button>
             </a>
           </Stack>
           <Text>© 2022 FirePlank. All rights reserved</Text>

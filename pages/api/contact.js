@@ -1,9 +1,9 @@
 const PASSWORD = process.env.EMAIL_PASS;
 
-export default function (req, res) {
-    if (method === "POST") {
+export default async function handler(req, res) {
+    if (req.method === "POST") {
         // If email or captcha are missing return an error
-        if (!email || !captcha) {
+        if (!req.body.email || !req.body.token) {
           return res.status(422).json({
             message: "Unproccesable request, please provide the required fields",
           });
@@ -17,7 +17,7 @@ export default function (req, res) {
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
               },
-              body: `response=${captcha}&secret=${process.env.HCAPTCHA_SECRET}`,
+              body: `response=${req.body.token}&secret=${process.env.HCAPTCHA_SECRET}`,
               method: "POST",
             }
           );

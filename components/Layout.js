@@ -36,7 +36,7 @@ const Layout = ({children}) => {
             </div>
             {homeBody}
             <ScrollToTop/>
-            <Box mb="400px"/>
+            <Box mb="10rem"/>
             <Footer/>
         </Box>
     )

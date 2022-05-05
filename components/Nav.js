@@ -9,15 +9,18 @@ import {
   Button,
   useColorMode,
 } from '@chakra-ui/react';
+
 import { BsMoonFill, BsSun, BsInfoCircle } from 'react-icons/bs';
 import { FaProjectDiagram, FaGithub, FaTwitter } from 'react-icons/fa';
 import { MdBiotech } from 'react-icons/md';
+import { RiContactsBookLine } from 'react-icons/ri';
+
 import styles from '../styles/Nav.module.css';
 const LinkItems = [
   { name: 'Projects', icon: FaProjectDiagram, path: '#projects' },
   { name: 'Technologies', icon: MdBiotech, path: '#tech' },
   { name: 'About', icon: BsInfoCircle, path: '#about' },
-  { name: 'Contact', icon: BsInfoCircle, path: '#contact' },
+  { name: 'Contact', icon: RiContactsBookLine, path: '#contact' },
 ];
 
 const NavLink = ({ children, href }) => (
