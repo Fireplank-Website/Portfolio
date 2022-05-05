@@ -1,6 +1,7 @@
 import { Box, Button, Heading, Input, Text } from "@chakra-ui/react";
 import styles from "../../styles/Contact.module.css";
 import { useState } from 'react';
+import React from "react";
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const Contact = () => {
@@ -8,25 +9,22 @@ const Contact = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [info, setInfo] = useState('');
-    const [passedCaptcha, setPassedCaptcha] = useState(false);
+    const [token, setToken] = useState('');
+    const hcaptchaRef = React.createRef();
     const [error, setError] = useState(false);
 
     const handleVerificationSuccess = (token, ekey) => {
-        setPassedCaptcha(true);
+        setToken(token);
     }
 
     const handleSubmit = (e) => {
-        if (!passedCaptcha) {
-            setError(true);
-            setInfo('Please verify that you are human.');
-            return;
-        }
         e.preventDefault();
 
         let data = {
             name,
             email,
-            message
+            message,
+            token
         }
 
         fetch('/api/contact', {
@@ -63,18 +61,19 @@ const Contact = () => {
                     <form className={styles.main}>
                         <Box className={styles.inputGroup}>
                             <label htmlFor='name'>Name</label>
-                            <Input type="text" value={name} placeholder="name" onChange={(e)=>{setName(e.target.value)}}  size={["sm", "md"]}/> 
+                            <Input type="text" required value={name} placeholder="name" onChange={(e)=>{setName(e.target.value)}}  size={["sm", "md"]}/> 
                         </Box>
                         <Box className={styles.inputGroup}>
                             <label htmlFor='email'>Email</label>
-                            <Input placeholder="email" type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}  size={["sm", "md"]}/> 
+                            <Input placeholder="email" required type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}  size={["sm", "md"]}/> 
                         </Box>
                         <Box className={styles.inputGroup}>
                             <label htmlFor='message'>Message</label>
-                            <Input type="text" placeholder="message" value={message} onChange={(e)=>{setMessage(e.target.value)}}  size={["sm", "md"]}/> 
+                            <Input type="text" required placeholder="message" value={message} onChange={(e)=>{setMessage(e.target.value)}}  size={["sm", "md"]}/> 
                         </Box>
                         <HCaptcha
-                            sitekey={process.env.HCAPTCHA_SITEKEY}
+                            ref={hcaptchaRef}
+                            sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY}
                             onVerify={(token,ekey) => handleVerificationSuccess(token, ekey)}
                         />
                         <Button type="submit" onClick={(e)=>{handleSubmit(e)}}>Submit</Button>
