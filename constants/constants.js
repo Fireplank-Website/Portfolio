@@ -1,3 +1,8 @@
+import { MdBiotech } from 'react-icons/md';
+import { RiContactsBookLine } from 'react-icons/ri';
+import { BsInfoCircle } from 'react-icons/bs';
+import { FaProjectDiagram } from 'react-icons/fa';
+
 export const projects = [
     {
         title: "Project One",
@@ -36,6 +41,13 @@ export const words = [
     'Open Source Contributor',
     'Cat Lover',
 ];
+
+export const LinkItems = [
+    { name: 'Projects', icon: FaProjectDiagram, path: '#projects' },
+    { name: 'Technologies', icon: MdBiotech, path: '#tech' },
+    { name: 'About', icon: BsInfoCircle, path: '#about' },
+    { name: 'Contact', icon: RiContactsBookLine, path: '#contact' },
+  ];
 
 export const TimeLineData = [
     { year: 2019, text: 'Started my journey', },
