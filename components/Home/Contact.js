@@ -99,7 +99,7 @@ const Contact = () => {
                                 <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='message'>Message</Text>
                                 <Textarea paddingInlineStart={"0.3rem"} borderRadius={"5px"} type="text" required placeholder="message" value={message} onChange={(e)=>{setMessage(e.target.value)}}  size={["sm", "md"]}/> 
                             </Box>
-                            <Box paddingTop="0.5rem" className={styles.captcha} transform={{ base: 'scale(0.65)', md: 'scale(0.8)', lg: 'scale(1)' }}>
+                            <Box paddingTop="0.5rem" className={styles.captcha} transform={{ base: 'scale(0.6)', md: 'scale(0.8)', lg: 'scale(1)' }}>
                                 <HCaptcha
                                     sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY}
                                     onVerify={(token,ekey) => handleVerificationSuccess(token, ekey)}

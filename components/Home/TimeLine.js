@@ -19,9 +19,9 @@ const TimeLine = () => {
                 fontWeight={300}
                 pb="2rem"
                 color="gray.400">
-                    My programming journey has been quite a ride, not to say I didn't have any fun though!
+                    My programming journey has been quite a ride, not to say I didn&apos;t have any fun though!
                     I got to meet amazing people and bring my skills to a whole new level.
-                    I don't know what I would do without programming and I'm sure I'll be doing it for a long time to come!
+                    I don&apos;t know what I would do without programming and I&apos;m sure I&apos;ll be doing it for a long time to come!
                 </Text>
                 <Carousel slides={TimeLineData}/>
             </Box>

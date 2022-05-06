@@ -3,14 +3,14 @@ const PASSWORD = process.env.EMAIL_PASS;
 export default async function handler(req, res) {
     if (req.method === "POST") {
         // If email or captcha are missing return an error
-        if (!req.body.email || !req.body.token) {
+        if (!req.body.email || !req.body.token || !req.body.message || !req.body.name) {
           return res.status(422).json({
             message: "Unproccesable request, please provide the required fields",
           });
         }
     
         try {
-          // Ping the google recaptcha verify API to verify the captcha code you received
+          // Ping the hcaptcha verify API to verify the captcha code received
           const response = await fetch(
             `https://hcaptcha.com/siteverify`,
             {
@@ -22,6 +22,7 @@ export default async function handler(req, res) {
             }
           );
           const captchaValidation = await response.json();
+
           /**
            * The structure of response from the veirfy API is
            * {
@@ -31,6 +32,7 @@ export default async function handler(req, res) {
            *  "error-codes": [...]        // optional
             }
            */
+      
           if (captchaValidation.success) {
             let nodemailer = require('nodemailer');
             const transporter = nodemailer.createTransport({
@@ -72,7 +74,7 @@ export default async function handler(req, res) {
           return res.status(422).json({ message: "Something went wrong" });
         }
     }
-    // Return 404 if someone pings the API with a method other than
-    // POST
+
+    // Return 404 if someone pings the API with a method other than POST
     return res.status(404).send("Not found");
 }
