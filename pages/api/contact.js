@@ -5,7 +5,7 @@ export default async function handler(req, res) {
         // If email or captcha are missing return an error
         if (!req.body.email || !req.body.token || !req.body.message || !req.body.name) {
           return res.status(422).json({
-            message: "Unproccesable request, please provide the required fields",
+            message: "Unproccesable request, please provide the required fields.",
           });
         }
     
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
           }
     
           return res.status(422).json({
-            message: "Unproccesable request, Invalid captcha code",
+            message: "Invalid captcha code given, please try again.",
           });
         } catch (error) {
           console.log(error);

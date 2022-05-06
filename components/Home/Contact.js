@@ -1,7 +1,7 @@
 import { Box, Button, Heading, Input, Text, Textarea } from "@chakra-ui/react";
 import styles from "../../styles/Contact.module.css";
 import { useState } from 'react';
-import React from "react";
+import React, { useEffect } from "react";
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const Card = ({ card }) => {
@@ -26,20 +26,20 @@ const Contact = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [info, setInfo] = useState('');
-    const [token, setToken] = useState('');
     const [error, setError] = useState(false);
-
-    const handleVerificationSuccess = (token, ekey) => {
-        setToken(token);
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (token === '') {
-            setError(true);
-            setInfo('Please complete the captcha');
-            return;
+    const hcaptchaRef = React.createRef();
+    
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Execute the reCAPTCHA when the form is submitted
+        hcaptchaRef.current.execute();
+      };
+      
+      const onCAPTCHAChange = (token) => {
+        // If the reCAPTCHA code is null or undefined indicating that
+        // the reCAPTCHA was expired then return early
+        if(!token) {
+          return;
         }
 
         let data = {
@@ -69,7 +69,12 @@ const Contact = () => {
                 setInfo(res.message);
             }
         })
-    }
+
+        // Reset the CAPTCHA so that it can be executed again if user 
+        // submits another email.
+        hcaptchaRef.current.reset();
+      }
+
     return (
         <Box className="section" ml={{ base: 'none', md: '11rem' }} id="contact" maxW={"95%"} maxH="95%">
             <Box className="section-container">
@@ -86,7 +91,7 @@ const Contact = () => {
                 width="60%"
                 >
                     <div className={styles.container}>
-                        <form className={styles.main}>
+                        <form className={styles.main} onSubmit={handleSubmit}>
                             <Box className={styles.inputGroup}>
                                 <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='name'>Name</Text>
                                 <Input height="1.75rem" paddingInlineStart={"0.3rem"} borderRadius={"5px"} type="text" required value={name} placeholder="name" onChange={(e)=>{setName(e.target.value)}}  size={["sm", "md"]}/> 
@@ -99,13 +104,15 @@ const Contact = () => {
                                 <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='message'>Message</Text>
                                 <Textarea paddingInlineStart={"0.3rem"} borderRadius={"5px"} type="text" required placeholder="message" value={message} onChange={(e)=>{setMessage(e.target.value)}}  size={["sm", "md"]}/> 
                             </Box>
-                            <Box paddingTop="0.5rem" className={styles.captcha} transform={{ base: 'scale(0.6)', md: 'scale(0.8)', lg: 'scale(1)' }}>
+                            <Box paddingTop="0.5rem">
                                 <HCaptcha
+                                    size="invisible"
+                                    ref={hcaptchaRef}
                                     sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY}
-                                    onVerify={(token,ekey) => handleVerificationSuccess(token, ekey)}
+                                    onVerify={onCAPTCHAChange}
                                 />
                             </Box>
-                            <Button marginTop={"0.5rem"} type="submit" onClick={(e)=>{handleSubmit(e)}}>Submit</Button>
+                            <Button className="h-captcha" marginTop={"0.5rem"} type="submit">Submit</Button>
                             <Text marginBottom={"1rem"} color={error ? 'red' : 'lightgreen'}>{info}</Text>
                         </form>
                     </div>
