@@ -13,7 +13,8 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaTwitter, FaGithub } from 'react-icons/fa';
+import { AiOutlineMail } from 'react-icons/ai';
 import { LinkItems } from '../constants/constants';
 
 const SocialButton = ({
@@ -61,44 +62,43 @@ export default function LargeWithNewsletter() {
       width="100%"
       zIndex={999}
       position={usedPos}
-      overflow="hidden"
+      bottom={0}
       >
-      <Container as={Stack} maxW={'6xl'} py={10}>
+      <Container as={Stack} maxW={'100%'} py={10} marginLeft="1rem">
         <SimpleGrid
           templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
           spacing={8}>
           <Stack spacing={6}>
-            <Image src="/images/fireplank.png" w="3rem" h="3rem"/>
+            <Image alt="fireplank logo" src="/images/fireplank.png" w="3rem" h="3rem"/>
             <Text fontSize={'sm'}>
-              © 2022 Chakra Templates. All rights reserved
+              © 2022 FirePlank. All rights reserved
             </Text>
             <Stack direction={'row'} spacing={6}>
-              <SocialButton label={'Twitter'} href={'#'}>
-                <FaTwitter />
-              </SocialButton>
-              <SocialButton label={'YouTube'} href={'#'}>
-                <FaYoutube />
-              </SocialButton>
-              <SocialButton label={'Instagram'} href={'#'}>
-                <FaInstagram />
+              <a href='https://twitter.com/FirePlank' target="_blank" rel="noopener noreferrer">
+                <SocialButton isExternal label={'Twitter'}>
+                  <FaTwitter />
+                </SocialButton>
+              </a>
+              <a href='https://github.com/FirePlank' target="_blank" rel="noopener noreferrer">
+                <SocialButton isExternal label={'Github'}>
+                  <FaGithub />
+                </SocialButton>
+              </a>
+              <SocialButton isExternal label={'Mail'} href={'mailto:contact@fireplank.xyz'}>
+                <AiOutlineMail />
               </SocialButton>
             </Stack>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Content</ListHeader>
             {LinkItems.map((link, index) => (
-              <Link href={link.path}>{link.name}</Link>
+              <Link key={`footer${index}`} href={link.path}>{link.name}</Link>
             ))}
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Support</ListHeader>
-            <Link href="https://hcaptcha.com/privacy">Privacy Policy</Link> and
-            <Link href="https://hcaptcha.com/terms">Terms of Service</Link> apply.
-          </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>Stay up to date</ListHeader>
-            <Stack direction={'row'}>
-            </Stack>
+            <Link isExternal href="https://hcaptcha.com/privacy">Privacy Policy</Link> and
+            <Link isExternal href="https://hcaptcha.com/terms">Terms of Service</Link> apply.
           </Stack>
         </SimpleGrid>
       </Container>

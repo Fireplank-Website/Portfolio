@@ -81,6 +81,7 @@ const Contact = () => {
                 <Heading
                 fontSize={["2.5rem", "3rem", "3.5rem"]}
                 lineHeight={["2.5rem", "3rem", "3.5rem"]}
+                paddingBottom="1rem"
                 className="section-header">
                     Contact
                 </Heading>
@@ -88,7 +89,7 @@ const Contact = () => {
                 borderRadius={"10px"}
                 boxShadow="3px 3px 20px rgba(80, 78, 78, 0.5)"
                 textAlign={"center"}
-                width="60%"
+                width="24.5rem"
                 >
                     <div className={styles.container}>
                         <form className={styles.main} onSubmit={handleSubmit}>
@@ -101,7 +102,7 @@ const Contact = () => {
                                 <Input  height="1.75rem" paddingInlineStart={"0.3rem"} borderRadius={"5px"} placeholder="email" required type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}  size={["sm", "md"]}/> 
                             </Box>
                             <Box className={styles.inputGroup}>
-                                <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='message'>Message</Text>
+                                <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='message' paddingBottom={"0.2rem"}>Message</Text>
                                 <Textarea paddingInlineStart={"0.3rem"} borderRadius={"5px"} type="text" required placeholder="message" value={message} onChange={(e)=>{setMessage(e.target.value)}}  size={["sm", "md"]}/> 
                             </Box>
                             <Box paddingTop="0.5rem">
