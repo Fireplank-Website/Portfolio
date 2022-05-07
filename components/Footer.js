@@ -7,8 +7,6 @@ import {
   Stack,
   Text,
   VisuallyHidden,
-  Input,
-  IconButton,
   useColorModeValue,
   Image,
 } from '@chakra-ui/react';
@@ -55,10 +53,16 @@ const ListHeader = ({ children }) => {
 export default function LargeWithNewsletter() {
   const router = useRouter();
   const usedPos = router.pathname == "/" ? "absolute" : "fixed";
+  const bg = useColorModeValue('gray.50', 'gray.900');
+  const color = useColorModeValue('gray.700', 'gray.200');
+  if (router.pathname.startsWith("/apps")) {
+    return null;
+  }
+
   return (
     <Box
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}
+      bg={bg}
+      color={color}
       width="100%"
       zIndex={999}
       position={usedPos}

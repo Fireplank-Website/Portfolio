@@ -8,10 +8,11 @@ import {
   Text,
   Button,
   useColorMode,
+  IconButton,
 } from '@chakra-ui/react';
 
 import { BsMoonFill, BsSun } from 'react-icons/bs';
-import { FaGithub, FaTwitter } from 'react-icons/fa';
+import { AiOutlineAppstore } from 'react-icons/ai';
 import styles from '../styles/Nav.module.css';
 import { LinkItems } from '../constants/constants';
 
@@ -98,16 +99,7 @@ const NavWithSidebar = () => {
       />
       <Box h={16} width="full">
         <Box mt="3" mr="4" float="right">
-          <a href="https://github.com/FirePlank" target="_blank" rel="noopener noreferrer">
-            <Button leftIcon={<FaGithub />} mr="1rem" aria-label="github button">
-              Github
-            </Button>
-          </a>
-          <a href="https://twitter.com/FirePlank" target="_blank" rel="noopener noreferrer">
-            <Button colorScheme='twitter' leftIcon={<FaTwitter />} mr="1rem" aria-label="twitter button">
-              Twitter
-            </Button>
-          </a>
+          <Button leftIcon={<AiOutlineAppstore/>} marginRight="1rem" onClick={() => window.location.href = "/apps"}>Apps</Button>
           <Button onClick={toggleColorMode} aria-label="change theme button">
               {colorMode === 'light' ? <BsMoonFill /> : <BsSun />}
           </Button>
@@ -132,16 +124,6 @@ const Nav = () => {
         </HStack>
 
         <Flex alignItems={'center'}>
-          <a href="https://github.com/FirePlank" target="_blank" rel="noopener noreferrer">
-            <Button leftIcon={<FaGithub />} mr="1rem" aria-label="github button">
-              Github
-            </Button>
-          </a>
-          <a href="https://twitter.com/FirePlank" target="_blank" rel="noopener noreferrer">
-            <Button colorScheme='twitter' leftIcon={<FaTwitter />} mr="1rem" aria-label="twitter button">
-              Twitter
-            </Button>
-          </a>
           <Button onClick={toggleColorMode} aria-label="change theme button">
               {colorMode === 'light' ? <BsMoonFill /> : <BsSun />}
           </Button>

@@ -26,6 +26,15 @@ const Layout = ({children}) => {
         <Contact key="contact"/>
     ] : <></>;
 
+    if (router.pathname.startsWith("/apps")) {
+        return (
+            <Box height={"100%"}>
+                {usedNav}
+                {children}
+            </Box>
+        )
+    }
+
     return (
         <Box>
             {usedNav}
