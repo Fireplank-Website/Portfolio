@@ -3,15 +3,15 @@ export function dijkstra(grid, startNode, finishNode) {
     startNode.distance = 0;
     const unvisitedNodes = getAllNodes(grid);
     while (!!unvisitedNodes.length) {
-      sortNodesByDistance(unvisitedNodes);
-      const closestNode = unvisitedNodes.shift();
-      // If we encounter a wall, we skip it.
-      if (closestNode.isWall) continue;
-      if (closestNode.distance === Infinity) return visitedNodesInOrder;
-      closestNode.isVisited = true;
-      visitedNodesInOrder.push(closestNode);
-      if (closestNode === finishNode) return visitedNodesInOrder;
-      updateUnvisitedNeighbors(closestNode, grid);
+        sortNodesByDistance(unvisitedNodes);
+        const closestNode = unvisitedNodes.shift();
+        // If we encounter a wall, we skip it.
+        if (closestNode.isWall) continue;
+        if (closestNode.distance === Infinity) return visitedNodesInOrder;
+        closestNode.isVisited = true;
+        visitedNodesInOrder.push(closestNode);
+        if (closestNode === finishNode) return visitedNodesInOrder;
+        updateUnvisitedNeighbors(closestNode, grid);
     }
 }
 
