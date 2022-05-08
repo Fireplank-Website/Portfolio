@@ -1,8 +1,11 @@
 import { Box, Button, HStack, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import Node from "../../../components/Visualizer/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../../../algorithms/dijkstra";
-import { BsChevronDown } from "react-icons/bs";
-import { useState, useRef } from "react";
+import { BsChevronDown, BsFillSquareFill, BsQuestionCircle } from "react-icons/bs";
+import { FaChevronRight } from "react-icons/fa";
+import { SiTarget } from "react-icons/si";
+import { useState } from "react";
+import Modal from "../../../components/Modal";
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -24,6 +27,7 @@ const getInitialGrid = () => {
 const getNewGridWithWallToggled = (grid, row, col, toggle) => {
     const newGrid = grid.slice();
     const node = newGrid[row][col];
+    if (node.isFinish || node.isStart) return grid;
     const newNode = {
       ...node,
       isWall: toggle,
@@ -49,16 +53,21 @@ export default function Visualizer() {
     const [speed, setSpeed] = useState(5);
     const [algo, setAlgo] = useState(0);
     const [grid, setGrid] = useState(getInitialGrid());
+    const [node, setNode] = useState(0);
     const [leftClick, setLeftClick] = useState(true);
     const [mouseIsPressed, setMouseIsPressed] = useState(false);
 
     const handleMouseDown = (row, col, toggle) => {
         setLeftClick(toggle);
-        setGrid(getNewGridWithWallToggled(grid, row, col, toggle));
+
+        switch(node) {
+            case 2:
+                setGrid(getNewGridWithWallToggled(grid, row, col, toggle));
+        }
         setMouseIsPressed(true);
     }
     const handleMouseEnter = (row, col) => {
-        if (!mouseIsPressed) return;
+        if (!mouseIsPressed || node != 2) return;
         setGrid(getNewGridWithWallToggled(grid, row, col, leftClick));
     }
     const handleMouseUp = () => {
@@ -101,6 +110,23 @@ export default function Visualizer() {
       }
 
     const visualize = () => {
+        const nodes = document.getElementsByClassName("node");
+        for (let i = 0; i < nodes.length; i++) {
+            nodes[i].className = "node";
+        }
+        // set walls
+        for (let row = 0; row < 20; row++) {
+            for (let col = 0; col < 50; col++) {
+                if (grid[row][col].isWall) {
+                    document.getElementById(`node-${row}-${col}`).className =
+                        'node node-wall';
+                }
+            }
+        }
+        // set start and finish node
+        nodes[START_NODE_COL + (50 * START_NODE_ROW)].className = "node node-start";
+        nodes[FINISH_NODE_COL + (50 * FINISH_NODE_ROW)].className = "node node-finish";
+
         switch (algo) {
             case 0:
                 visualizeDijkstra();
@@ -120,12 +146,23 @@ export default function Visualizer() {
                 return "Slow";
         }
     }
-
     const getAlgorithm = () => {
-        if (algo === 0) {
-            return "Dijkstra";
+        switch (algo) {
+            case 0:
+                return "Dijkstra";
         }
     }
+    const getNode = () => {
+        switch(node) {
+            case 0:
+                return "Start";
+            case 1:
+                return "Finish";
+            case 2:
+                return "Wall";
+        }
+    }
+
 
     const resetGrid = () => {
         // reset all node classes
@@ -143,9 +180,19 @@ export default function Visualizer() {
     return (
         <Box>
             <Box padding="2rem 0 0 3rem">
-                <Button marginRight={"1rem"} onClick={() => visualize()}>Visualize</Button>
+                <Button margin={"1rem"} onClick={() => visualize()}>Visualize</Button>
                 <Menu>
-                    <MenuButton as={Button} marginRight={"1rem"} rightIcon={<BsChevronDown />}>
+                    <MenuButton as={Button} margin={"1rem 1rem 1rem 0"} rightIcon={<BsChevronDown />}>
+                        Node: {getNode()}
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem icon={<FaChevronRight/>} onClick={() => setNode(0)}>Start</MenuItem>
+                        <MenuItem icon={<SiTarget/>} onClick={() => setNode(1)}>Target</MenuItem>
+                        <MenuItem icon={<BsFillSquareFill/>} onClick={() => setNode(2)}>Wall</MenuItem>
+                    </MenuList>
+                </Menu>
+                <Menu>
+                    <MenuButton as={Button} margin={"1rem 1rem 1rem 0"} rightIcon={<BsChevronDown />}>
                         Algo: {getAlgorithm()}
                     </MenuButton>
                     <MenuList>
@@ -163,7 +210,15 @@ export default function Visualizer() {
                         <MenuItem onClick={() => setSpeed(15)}>Slow</MenuItem>
                     </MenuList>
                 </Menu>
-                <Button onClick={resetGrid} bgColor="red.400" _hover={{ bg: "red.500" }}>Reset</Button>
+                <Button marginRight={"1rem"} onClick={resetGrid} bgColor="red.400" _hover={{ bg: "red.500" }}>Clear Board</Button>
+                <Modal
+                    title="How to use" 
+                    icon={<BsQuestionCircle/>} 
+                    body={`The usage of this app is simple. Just set the start and finish node with the node dropdown menu and then clicking on the corresponding square.
+                    
+                    You can set walls that the algo cannot go through with the wall node. Just hold down your left mouse button and drag it across the squares you want to make walls. To remove a wall just do the same while holding down the right mouse button.
+                    
+                    After that just set the corresponding algo you want to use and press the visualize button. The app will visually show how the selected algorithm finds the shortest path to the target node.`}/>
             </Box>
             <Box padding="3rem 1rem 0 0" paddingLeft={{ base: '1rem', lg: '3rem' }}>
                 {grid.map((row, rowIdx) => {
