@@ -120,6 +120,7 @@ const Nav = () => {
             spacing={4}
             display={{ base: 'none', md: 'flex' }}>
             <NavLink key={1} href="/">Home</NavLink>
+            <NavLink key={2} href="/apps">Apps</NavLink>
           </HStack>
         </HStack>
 

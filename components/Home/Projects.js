@@ -64,13 +64,15 @@ const Project = ({ project }) => {
                     <Text key={`tag${i}`} color="gray.400" pl={"0.4rem"} pr="0.4rem" fontSize={["0.5rem", "0.6rem", "0.8rem", "1rem"]}>{tag}</Text>
                 ))}
             </Box>
-            <Box justifyContent="space-between" display={"flex"} padding="0 2rem 1rem 2rem">
+            <Box justifyContent={project.visit === "" ? "center" : "space-between"} display={"flex"} padding="0 2rem 1rem 2rem">
                 <a href={project.source} target="_blank" rel="noopener noreferrer">
                     <Button colorScheme='orange' size='md' mt="1rem">Source</Button>
                 </a>
-                <a href={project.visit} target="_blank" rel="noopener noreferrer">
-                    <Button colorScheme='orange' size='md' mt="1rem">&nbsp;Visit&nbsp;</Button>
-                </a>
+                {project.visit !== "" && 
+                    <a href={project.visit} target="_blank" rel="noopener noreferrer">
+                        <Button colorScheme='orange' size='md' mt="1rem">&nbsp;Visit&nbsp;</Button>
+                    </a>
+                }
             </Box>
         </Box>
     )

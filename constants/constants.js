@@ -33,6 +33,23 @@ export const projects = [
     },
 ];
 
+export const apps = [
+    {
+        title: "Pathfinding Visualizer",
+        description: "A pathfinding visualizer that can find the shortest path from the start node to the finish.",
+        image: "/images/pathfinding.png",
+        play: "/apps/visualizer",
+        id: 0
+    },
+    {
+        title: "News App",
+        description: "A news app that gets the latest tech news from an API and serves them to you right in one place.",
+        image: "/images/news.png",
+        play: "https://news.fireplank.xyz",
+        id: 1
+    },
+];
+
 export const words = [
     '', // This line gets ignored in production mode and is necessary for the layout of the site to not snap when loading for the first time.
     'Full Stack Developer',
