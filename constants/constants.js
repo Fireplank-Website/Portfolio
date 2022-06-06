@@ -5,30 +5,30 @@ import { FaProjectDiagram } from 'react-icons/fa';
 
 export const projects = [
     {
-        title: "Project One",
-        description: "This is a template description for project one.",
-        image: "/images/portfolio.jpg",
-        tags: ["Next.js", "Chakra UI", "Tailwind CSS"],
-        source: "https://example.com",
-        visit: "https://example.com",
+        title: "Pathfinding Visualizer",
+        description: "A pathfinding visualizer that can find the shortest path from the start node to the finish.",
+        image: "/images/pathfinding.png",
+        tags: ["Next.js", "Chakra UI", "Data Structures & Algorithms"],
+        source: "https://github.com/Fireplank-Website/Portfolio/tree/main/pages/apps/visualizer",
+        visit: "/apps/visualizer",
         id: 0
     },
     {
-        title: "Project Two",
-        description: "This is a template description for project two.",
-        image: "/images/portfolio.jpg",
-        tags: ["Next.js", "Chakra UI", "Algrorithms"],
-        source: "https://example.com",
-        visit: "https://example.com",
+        title: "Chess Bot",
+        description: "A powerful chess bot that can beat most beginner to intermediate players.",
+        image: "/images/chess.jpg",
+        tags: ["Data Structures", "Algorithms", "Rust", "AI"],
+        source: "https://github.com/FirePlank/HydroChess",
+        visit: "",
         id: 1
     },
     {
-        title: "Project Three",
-        description: "This is a template description for project three.",
-        image: "/images/portfolio.jpg",
-        tags: ["React", "Chakra UI", "Tailwind CSS"],
-        source: "https://example.com",
-        visit: "https://example.com",
+        title: "UnoLife",
+        description: "A desktop UI application with many classic games made fully in Rust.",
+        image: "/images/UnoLife.png",
+        tags: ["Rust", "Games", "UI"],
+        source: "https://github.com/FirePlank/UnoLife",
+        visit: "",
         id: 2
     },
 ];

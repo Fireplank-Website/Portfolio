@@ -2,8 +2,8 @@ import { Box } from "@chakra-ui/react";
 
 export default function Apps() {
     return (
-        <Box>
-            <h1>Apps</h1>
+        <Box padding={20}>
+            <h1>Come back soon!</h1>
         </Box>
     )
 
