@@ -41,6 +41,18 @@ export default async function handler(req, res) {
                 }
             });
 
+            await new Promise((resolve, reject) => {
+              // verify connection configuration
+              transporter.verify(function (error, success) {
+                  if (error) {
+                      console.log(error);
+                      reject(error);
+                  } else {
+                      resolve(success);
+                  }
+              });
+            });
+
             const mailData = {
                 from: 'Contact Form <fireplankwebsite@gmail.com>',
                 to: 'fireplankwebsite@gmail.com',
@@ -49,12 +61,19 @@ export default async function handler(req, res) {
                 html: `<p>Sender email: ${req.body.email}</p><br/><div>${req.body.message}</div>`
             }
 
-            transporter.sendMail(mailData, function (err, info) {
-                if(err) {
-                    console.log(err);
-                    return res.status(500).json({ message: err });
-                }
-            })
+            await new Promise((resolve, reject) => {
+              // send mail
+              transporter.sendMail(mailData, (err, info) => {
+                  if (err) {
+                      console.error(err);
+                      reject(err);
+                      return res.status(500).json({ message: err });
+                  } else {
+                      console.log(info);
+                      resolve(info);
+                  }
+              });
+            });
             // Return 200 if everything is successful
             return res.status(200).send("OK");
           }
