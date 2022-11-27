@@ -1,5 +1,3 @@
-const PASSWORD = process.env.EMAIL_PASS;
-
 export default async function handler(req, res) {
     if (req.method === "POST") {
         // If email or captcha are missing return an error
@@ -36,21 +34,16 @@ export default async function handler(req, res) {
           if (captchaValidation.success) {
             let nodemailer = require('nodemailer');
             const transporter = nodemailer.createTransport({
-                port: 587,
-                host: "smtp.porkbun.com",
+                service: "gmail",
                 auth: {
-                user: 'contact@fireplank.xyz',
-                pass: PASSWORD,
-                },
-                tls: {
-                    ciphers:'SSLv3'
-                },
-                secureConnection: false
+                  user: 'fireplankwebsite@gmail.com',
+                  pass: process.env.EMAIL_PASS,
+                }
             });
 
             const mailData = {
-                from: 'Contact Form <contact@fireplank.xyz>',
-                to: 'contact@fireplank.xyz',
+                from: 'Contact Form <fireplankwebsite@gmail.com>',
+                to: 'fireplankwebsite@gmail.com',
                 subject: `Message from '${req.body.name}'`,
                 text: req.body.message + " | Sender email: " + req.body.email,
                 html: `<p>Sender email: ${req.body.email}</p><br/><div>${req.body.message}</div>`

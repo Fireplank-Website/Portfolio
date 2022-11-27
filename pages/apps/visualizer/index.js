@@ -223,8 +223,8 @@ export default function Visualizer() {
         switch (algo) {
             case 0:
                 return "Dijkstra";
-            case 1:
-                return "A*";
+            // case 1:
+            //     return "A*";
         }
     }
     const getNode = () => {
@@ -274,7 +274,7 @@ export default function Visualizer() {
                     </MenuButton>
                     <MenuList>
                         <MenuItem onClick={() => setAlgo(0)}>Dijkstra</MenuItem>
-                        <MenuItem onClick={() => setAlgo(1)}>A*</MenuItem>
+                        {/* <MenuItem onClick={() => setAlgo(1)}>A*</MenuItem> */}
                     </MenuList>
                 </Menu>
                 <Menu>

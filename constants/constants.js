@@ -41,13 +41,6 @@ export const apps = [
         play: "/apps/visualizer",
         id: 0
     },
-    {
-        title: "News App",
-        description: "A news app that gets the latest tech news from an API and serves them to you right in one place.",
-        image: "/images/news.png",
-        play: "https://news.fireplank.xyz",
-        id: 1
-    },
 ];
 
 export const words = [
