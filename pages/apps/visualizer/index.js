@@ -214,7 +214,7 @@ export default function Visualizer() {
             case 5:
                 return "Fast";
             case 10:
-                return "Medium";
+                return "Normal";
             case 15:
                 return "Slow";
         }

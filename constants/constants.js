@@ -8,10 +8,20 @@ export const projects = [
         title: "Pathfinding Visualizer",
         description: "A pathfinding visualizer that can find the shortest path from the start node to the finish.",
         image: "/images/pathfinding.png",
-        tags: ["Next.js", "Chakra UI", "Data Structures & Algorithms"],
+        tags: ["Next.js", "Visualization", "Data Structures & Algorithms"],
         source: "https://github.com/Fireplank-Website/Portfolio/tree/main/pages/apps/visualizer",
         visit: "/apps/visualizer",
         id: 0
+    },
+    {
+        title: "Sorting Visualizer",
+        description: "A sorting visualizer that visually sorts an list using various sorting algorithms and visualization techniques.",
+        image: "/images/sorting.png",
+        play: "/apps/sorting",
+        tags: ["Next.js", "Visualization", "Data Structures & Algorithms"],
+        source: "https://github.com/Fireplank-Website/Portfolio/tree/main/pages/apps/sorting",
+        visit: "/apps/sorting",
+        id: 1
     },
     {
         title: "Chess Bot",
@@ -20,7 +30,7 @@ export const projects = [
         tags: ["Data Structures", "Algorithms", "Rust", "AI"],
         source: "https://github.com/FirePlank/HydroChess",
         visit: "",
-        id: 1
+        id: 2
     },
     {
         title: "UnoLife",
@@ -29,7 +39,7 @@ export const projects = [
         tags: ["Rust", "Games", "UI"],
         source: "https://github.com/FirePlank/UnoLife",
         visit: "",
-        id: 2
+        id: 3
     },
 ];
 
@@ -41,6 +51,13 @@ export const apps = [
         play: "/apps/visualizer",
         id: 0
     },
+    {
+        title: "Sorting Visualizer",
+        description: "A sorting visualizer that visually sorts an list using various sorting algorithms and visualization techniques.",
+        image: "/images/sorting.png",
+        play: "/apps/sorting",
+        id: 0
+    }
 ];
 
 export const words = [
