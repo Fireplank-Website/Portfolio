@@ -1,9 +1,20 @@
 .inputGroup {
-    height: 50%;
-    width: 90%;
-    display: flex;
-    text-align: left;
-    flex-direction: column;
-    margin: 0 auto;
-    padding: 0.5rem;
+  height: 50%;
+  width: 90%;
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+/* make more space at bottom on mobile and small screens */
+.padding {
+  padding-bottom: 15rem;
+}
+
+@media (min-width: 768px) {
+  .padding {
+    padding-bottom: 0;
   }
+}

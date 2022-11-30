@@ -1,6 +1,7 @@
 import { Box, Button, HStack, Menu, MenuButton, MenuItem, MenuList, useToast } from "@chakra-ui/react";
 import Node from "../../../components/Visualizer/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../../../algorithms/dijkstra";
+import { aStar, getNodesInShortestPathOrderAstar } from "../../../algorithms/astar";
 import { astar } from "../../../algorithms/astar";
 import { BsChevronDown, BsFillSquareFill, BsQuestionCircle } from "react-icons/bs";
 import { FaChevronRight, FaWeightHanging } from "react-icons/fa";
@@ -55,6 +56,7 @@ const createNode = (col, row) => {
         distance: Infinity,
         isVisited: false,
         isWall: false,
+        isWeight: false,
         closed: false,
         previousNode: null,
     };
@@ -150,9 +152,10 @@ export default function Visualizer() {
         const finishNode = grid[finishnode.row][finishnode.col];
         const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
         const nodesInShortestPath = getNodesInShortestPathOrder(finishNode);
-        animateDijkstra(visitedNodesInOrder, nodesInShortestPath);
+        animate(visitedNodesInOrder, nodesInShortestPath);
     }
-    const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
+    
+    const animate = (visitedNodesInOrder, nodesInShortestPathOrder) => {
         for (let i = 0; i <= visitedNodesInOrder.length; i++) {
             if (stop.current) return;
             if (i === visitedNodesInOrder.length) {
@@ -176,9 +179,9 @@ export default function Visualizer() {
         const startNode = grid[startnode.row][startnode.col];
         const finishNode = grid[finishnode.row][finishnode.col];
         const visitedNodesInOrder = astar(grid, startNode, finishNode);
-        // const nodesInShortestPath = getAStarInShortestPath(finishNode);
-        console.log(visitedNodesInOrder);
-        // animateDijkstra(visitedNodesInOrder, nodesInShortestPath);
+        const nodesInShortestPath = getNodesInShortestPathOrderAstar(finishNode);
+        // console.log(visitedNodesInOrder);
+        animate(visitedNodesInOrder, nodesInShortestPath);
     }
 
     const animateShortestPath = (nodesInShortestPathOrder) => {
@@ -259,8 +262,8 @@ export default function Visualizer() {
         switch (algo) {
             case 0:
                 return "Dijkstra";
-            // case 1:
-            //     return "A*";
+            case 1:
+                return "A*";
         }
     }
     const getNode = () => {
@@ -324,7 +327,7 @@ export default function Visualizer() {
                     </MenuButton>
                     <MenuList>
                         <MenuItem onClick={() => setAlgo(0)}>Dijkstra</MenuItem>
-                        {/* <MenuItem onClick={() => setAlgo(1)}>A*</MenuItem> */}
+                        <MenuItem onClick={() => setAlgo(1)}>A*</MenuItem>
                     </MenuList>
                 </Menu>
                 <Menu>

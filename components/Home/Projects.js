@@ -5,10 +5,6 @@ function remrange(start, end) {
     return new Array(end - start).fill().map((d, i) => `${i + start}rem`);
 }
 
-function range(start, end) {
-    return new Array(end - start).fill().map((d, i) => i + start);
-}
-
 const Project = ({ project }) => {
     return (
         <Box 
@@ -69,7 +65,7 @@ const Project = ({ project }) => {
                     <Button colorScheme='orange' size='md' mt="1rem">Source</Button>
                 </a>
                 {project.visit !== "" && 
-                    <a href={project.visit} target="_blank" rel="noopener noreferrer">
+                    <a href={project.visit}>
                         <Button colorScheme='orange' size='md' mt="1rem">&nbsp;Visit&nbsp;</Button>
                     </a>
                 }

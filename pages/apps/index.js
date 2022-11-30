@@ -62,7 +62,7 @@ const App = ({ project }) => {
 
 const Apps = () => {
     return (
-        <Box className="section" paddingTop="2rem" maxW={"90%"} ml={{ base: 'none', md: '2.5rem' }}>
+        <Box className="section" paddingTop="2rem" maxW={"90%"}>
             <Box className="section-container">
                 <Heading
                 fontSize={["2.5rem", "3rem", "3.5rem"]}
@@ -75,7 +75,7 @@ const Apps = () => {
                 templateColumns="repeat(auto-fill, 350px)"
                 gap="1rem"
                 padding="3rem"
-                paddingLeft={"10rem"}
+                paddingLeft={{ base: "1rem", md: "10rem" }}
                 placeItems={"center"}>
                     {apps.map((app, i) => (
                       <App key={`app${i}`} project={app}/>

@@ -4,23 +4,6 @@ import { useState } from 'react';
 import React, { useEffect } from "react";
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
-const Card = ({ card }) => {
-    return (
-        <Box 
-            borderRadius={"10px"}
-            boxShadow="3px 3px 20px rgba(80, 78, 78, 0.5)"
-            textAlign={"center"}
-            width="100%"
-        >
-            {card}
-        </Box>
-    )
-}
-
-function remrange(start, end) {
-    return new Array(end - start).fill().map((d, i) => `${i + start}rem`);
-}
-
 const Contact = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -76,7 +59,7 @@ const Contact = () => {
       }
 
     return (
-        <Box className="section" ml={{ base: 'none', md: '11rem' }} id="contact" maxW={"95%"} maxH="95%">
+        <Box className={`section ${styles.padding}`} ml={{ base: 'none', md: '11rem' }} id="contact" maxW={"95%"} maxH="95%">
             <Box className="section-container">
                 <Heading
                 fontSize={["2.5rem", "3rem", "3.5rem"]}
@@ -89,10 +72,10 @@ const Contact = () => {
                 borderRadius={"10px"}
                 boxShadow="3px 3px 20px rgba(80, 78, 78, 0.5)"
                 textAlign={"center"}
-                width="24.5rem"
+                width={{ base: '20rem', md: "24.5rem" }}
                 >
-                    <div className={styles.container}>
-                        <form className={styles.main} onSubmit={handleSubmit}>
+                    <div>
+                        <form onSubmit={handleSubmit}>
                             <Box className={styles.inputGroup}>
                                 <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='name'>Name</Text>
                                 <Input height="1.75rem" paddingInlineStart={"0.3rem"} borderRadius={"5px"} type="text" required value={name} placeholder="name" onChange={(e)=>{setName(e.target.value)}}  size={["sm", "md"]}/> 

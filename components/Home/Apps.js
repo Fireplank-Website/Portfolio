@@ -5,10 +5,6 @@ function remrange(start, end) {
     return new Array(end - start).fill().map((d, i) => `${i + start}rem`);
 }
 
-function range(start, end) {
-    return new Array(end - start).fill().map((d, i) => i + start);
-}
-
 const Project = ({ project }) => {
     return (
         <Box 
