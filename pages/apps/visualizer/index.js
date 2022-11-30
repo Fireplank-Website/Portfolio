@@ -3,9 +3,9 @@ import Node from "../../../components/Visualizer/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../../../algorithms/dijkstra";
 import { astar } from "../../../algorithms/astar";
 import { BsChevronDown, BsFillSquareFill, BsQuestionCircle } from "react-icons/bs";
-import { FaChevronRight } from "react-icons/fa";
+import { FaChevronRight, FaWeightHanging } from "react-icons/fa";
 import { SiTarget } from "react-icons/si";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Modal from "../../../components/Modal";
 
 const getNewGridWithWallToggled = (grid, row, col, toggle) => {
@@ -13,12 +13,26 @@ const getNewGridWithWallToggled = (grid, row, col, toggle) => {
     const node = newGrid[row][col];
     if (node.isFinish || node.isStart) return grid;
     const newNode = {
-      ...node,
-      isWall: toggle,
+        ...node,
+        isWall: toggle,
+        isWeight: false,
     };
     newGrid[row][col] = newNode;
     return newGrid;
 };
+
+const getNewGridWithWeightToggled = (grid, row, col, toggle) => {
+    const newGrid = grid.slice();
+    const node = newGrid[row][col];
+    if (node.isFinish || node.isStart) return grid;
+    const newNode = {
+        ...node,
+        isWeight: toggle,
+        isWall: false,
+    };
+    newGrid[row][col] = newNode;
+    return newGrid;
+}
 
 const getInitialGrid = () => {
     const grid = [];
@@ -57,6 +71,7 @@ export default function Visualizer() {
     const [mouseIsPressed, setMouseIsPressed] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
     const [hasReset, setHasReset] = useState(true);
+    const stop = useRef(false);
     const toast = useToast();
 
     const handleMouseDown = (row, col, toggle) => {
@@ -94,20 +109,39 @@ export default function Visualizer() {
             case 2:
                 setGrid(getNewGridWithWallToggled(grid, row, col, toggle));
                 break;
+            case 3:
+                setGrid(getNewGridWithWeightToggled(grid, row, col, toggle));
+                break;
         }
         if (!hasReset) {
             resetGrid();
             setHasReset(true);
+            stop.current = true;
+        } else {
+            stop.current = false;
         }
         setMouseIsPressed(true);
     }
     const handleMouseEnter = (row, col) => {
-        if (!mouseIsPressed || node != 2) return;
-        setGrid(getNewGridWithWallToggled(grid, row, col, leftClick));
+        if (!mouseIsPressed || (node != 2 && node != 3)) return;
+        if (node == 2) setGrid(getNewGridWithWallToggled(grid, row, col, leftClick));
+        else setGrid(getNewGridWithWeightToggled(grid, row, col, leftClick));
     }
     const handleMouseUp = () => {
         setMouseIsPressed(false);
     }
+
+    // const setWeight = (row, col) => {
+    //     const newGrid = grid.slice();
+    //     const node = newGrid[row][col];
+    //     if (node.isFinish || node.isStart || node.isWall) return;
+    //     const newNode = {
+    //         ...node,
+    //         weight: 15,
+    //     };
+    //     newGrid[row][col] = newNode;
+    //     setGrid(newGrid);
+    // }
 
 
     // dijkstra
@@ -120,6 +154,7 @@ export default function Visualizer() {
     }
     const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
         for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+            if (stop.current) return;
             if (i === visitedNodesInOrder.length) {
                 setTimeout(() => {
                 animateShortestPath(nodesInShortestPathOrder);
@@ -127,10 +162,10 @@ export default function Visualizer() {
                 return;
             }
             setTimeout(() => {
+                if (stop.current) return;
                 const node = visitedNodesInOrder[i];
                 if (!node.isStart && !node.isFinish) {
-                    document.getElementById(`node-${node.row}-${node.col}`).className =
-                        'node node-visited';
+                    document.getElementById(`node-${node.row}-${node.col}`).setAttribute("class", "node node-visited");
                 }
             }, speed * i);
         }
@@ -158,10 +193,11 @@ export default function Visualizer() {
             return;
         }
         for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+            if (stop.current) return;
             setTimeout(() => {
+                if (stop.current) return;
                 const node = nodesInShortestPathOrder[i];
-                document.getElementById(`node-${node.row}-${node.col}`).className =
-                'node node-shortest-path';
+                document.getElementById(`node-${node.row}-${node.col}`).setAttribute("class", 'node node-shortest-path');
             }, 30 * i);
         }
         setIsRunning(false);
@@ -178,18 +214,18 @@ export default function Visualizer() {
             });
             return;
         }
+        stop.current = false;
         setIsRunning(true);
 
         const nodes = document.getElementsByClassName("node");
         for (let i = 0; i < nodes.length; i++) {
-            nodes[i].className = "node";
+            nodes[i].setAttribute("class", "node");
         }
         // set walls
         for (let row = 0; row < 20; row++) {
             for (let col = 0; col < 50; col++) {
                 if (grid[row][col].isWall) {
-                    document.getElementById(`node-${row}-${col}`).className =
-                        'node node-wall';
+                    document.getElementById(`node-${row}-${col}`).setAttribute("class", 'node node-wall');
                 }
             }
         }
@@ -235,15 +271,28 @@ export default function Visualizer() {
                 return "Finish";
             case 2:
                 return "Wall";
+            case 3:
+                return "Weight";
         }
     }
 
 
     const resetGrid = () => {
+        if (isRunning) {
+            stop.current = true;
+            setIsRunning(false);
+            toast({
+                title: "Visualizer stopped",
+                status: "info",
+                position: "bottom-right",
+                isClosable: true,
+            });
+            return;
+        }
         // reset all node classes
         const nodes = document.getElementsByClassName("node");
         for (let i = 0; i < nodes.length; i++) {
-            nodes[i].className = "node";
+            nodes[i].setAttribute("class", "node");
         }
         // reset grid
         setGrid(getInitialGrid());
@@ -266,6 +315,7 @@ export default function Visualizer() {
                         <MenuItem icon={<FaChevronRight/>} onClick={() => setNode(0)}>Start</MenuItem>
                         <MenuItem icon={<SiTarget/>} onClick={() => setNode(1)}>Target</MenuItem>
                         <MenuItem icon={<BsFillSquareFill/>} onClick={() => setNode(2)}>Wall</MenuItem>
+                        <MenuItem icon={<FaWeightHanging/>} onClick={() => setNode(3)}>Weight</MenuItem>
                     </MenuList>
                 </Menu>
                 <Menu>
@@ -288,13 +338,15 @@ export default function Visualizer() {
                         <MenuItem onClick={() => setSpeed(15)}>Slow</MenuItem>
                     </MenuList>
                 </Menu>
-                <Button marginRight={"1rem"} onClick={resetGrid} bgColor="red.400" _hover={{ bg: "red.500" }}>Reset Board</Button>
+                <Button marginRight={"1rem"} onClick={resetGrid} bgColor="red.400" _hover={{ bg: "red.500" }}>{isRunning ? "Stop visualization" : "Reset Board"}</Button>
                 <Modal
                     title="How to use" 
                     icon={<BsQuestionCircle/>} 
                     body={`The usage of this app is simple. Just set the start and finish node with the node dropdown menu and then click the wanted square.
                     
                     You can set walls that the algo cannot go through with the wall node. Just hold down your left mouse button and drag it across the squares you want to make walls. To remove a wall just do the same while holding down the right mouse button.
+
+                    Weights are placed and removed the same way as walls. The difference is that weighted nodes can be traversed through but it takes three times as long to do so.
                     
                     After that just set the wanted algorithm and press the visualize button. The app will then visually show how the selected algorithm finds the shortest path to the target node.`}/>
             </Box>
@@ -303,7 +355,7 @@ export default function Visualizer() {
                     return (
                         <HStack key={rowIdx} spacing="0">
                             {row.map((node, nodeIdx) => {
-                                const {row, col, isFinish, isStart, isWall} = node;
+                                const {row, col, isFinish, isStart, isWall, isWeight} = node;
                                 return (
                                     <Node
                                     key={nodeIdx}
@@ -311,6 +363,7 @@ export default function Visualizer() {
                                     isFinish={isFinish}
                                     isStart={isStart}
                                     isWall={isWall}
+                                    isWeight={isWeight}
                                     mouseIsPressed={mouseIsPressed}
                                     onMouseDown={(row, col, toggle) => handleMouseDown(row, col, toggle)}
                                     onMouseEnter={(row, col, toggle) =>
