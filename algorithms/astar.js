@@ -1,30 +1,55 @@
 export function astar(grid, startNode, finishNode) {
     const visitedNodesInOrder = [];
     startNode.distance = 0;
+    startNode.totalDistance = 0;
 
     const unvisitedNodes = getAllNodes(grid);
+    for (const node of unvisitedNodes) {
+        if (node !== startNode) {
+            node.totalDistance = Infinity;
+        }
+    }
     while (!!unvisitedNodes.length) {
-        sortNodesByDistance(unvisitedNodes);
-        const closestNode = unvisitedNodes.shift();
+        const closestNode = sortNodesByDistance(unvisitedNodes);
         // If we encounter a wall, we skip it.
         if (closestNode.isWall) continue;
-        if (closestNode.distance === Infinity) return visitedNodesInOrder;
+        if (closestNode.distance === Infinity) return [visitedNodesInOrder, getNodesInShortestPathOrderAstar(finishNode, startNode)];
         closestNode.isVisited = true;
         visitedNodesInOrder.push(closestNode);
-        if (closestNode === finishNode) return visitedNodesInOrder;
+        if (closestNode === finishNode) return [visitedNodesInOrder, getNodesInShortestPathOrderAstar(finishNode, startNode)];
         updateUnvisitedNeighbors(closestNode, grid, finishNode, startNode);
     }
 }
 
 function sortNodesByDistance(unvisitedNodes) {
-    unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
+    let currentClosest, index;
+    for (let i = 0; i < unvisitedNodes.length; i++) {
+        if (!currentClosest || currentClosest.totalDistance > unvisitedNodes[i].totalDistance) {
+        currentClosest = unvisitedNodes[i];
+        index = i;
+        } else if (currentClosest.totalDistance === unvisitedNodes[i].totalDistance) {
+        if (currentClosest.hDist > unvisitedNodes[i].hDist) {
+            currentClosest = unvisitedNodes[i];
+            index = i;
+        }
+        }
+    }
+    unvisitedNodes.splice(index, 1);
+    return currentClosest;
 }
 
 function updateUnvisitedNeighbors(node, grid, finishNode, startNode) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
     for (const neighbor of unvisitedNeighbors) {
-        neighbor.distance = calculateDist(neighbor, finishNode) + calculateDist(neighbor, startNode);
-        neighbor.previousNode = node;
+        if (!neighbor.hDist) neighbor.hDist = calculateDist(neighbor, finishNode);
+        let amount = 1;
+        if (neighbor.isWeight) amount = 3;
+        let distanceToCompare = node.distance + amount;
+        if (distanceToCompare < neighbor.distance) { 
+            neighbor.distance = distanceToCompare;
+            neighbor.totalDistance = neighbor.distance + neighbor.hDist;
+            neighbor.previousNode = node;
+        }
     }
 }
 

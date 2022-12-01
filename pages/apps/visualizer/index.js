@@ -1,7 +1,6 @@
 import { Box, Button, HStack, Menu, MenuButton, MenuItem, MenuList, useToast } from "@chakra-ui/react";
 import Node from "../../../components/Visualizer/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../../../algorithms/dijkstra";
-import { aStar, getNodesInShortestPathOrderAstar } from "../../../algorithms/astar";
 import { astar } from "../../../algorithms/astar";
 import { BsChevronDown, BsFillSquareFill, BsQuestionCircle } from "react-icons/bs";
 import { FaChevronRight, FaWeightHanging } from "react-icons/fa";
@@ -156,12 +155,14 @@ export default function Visualizer() {
     }
     
     const animate = (visitedNodesInOrder, nodesInShortestPathOrder) => {
+        let mult = 1;
+        if (algo == 1) mult = 2;
         for (let i = 0; i <= visitedNodesInOrder.length; i++) {
             if (stop.current) return;
             if (i === visitedNodesInOrder.length) {
                 setTimeout(() => {
                 animateShortestPath(nodesInShortestPathOrder);
-                }, speed * i);
+                }, speed * i * mult);
                 return;
             }
             setTimeout(() => {
@@ -170,7 +171,7 @@ export default function Visualizer() {
                 if (!node.isStart && !node.isFinish) {
                     document.getElementById(`node-${node.row}-${node.col}`).setAttribute("class", "node node-visited");
                 }
-            }, speed * i);
+            }, speed * i * mult);
         }
     }
 
@@ -178,10 +179,8 @@ export default function Visualizer() {
     const visualizeAStar = () => {
         const startNode = grid[startnode.row][startnode.col];
         const finishNode = grid[finishnode.row][finishnode.col];
-        const visitedNodesInOrder = astar(grid, startNode, finishNode);
-        const nodesInShortestPath = getNodesInShortestPathOrderAstar(finishNode);
-        // console.log(visitedNodesInOrder);
-        animate(visitedNodesInOrder, nodesInShortestPath);
+        const nodesInShortestPath = astar(grid, startNode, finishNode);
+        animate(nodesInShortestPath[0], nodesInShortestPath[1]);
     }
 
     const animateShortestPath = (nodesInShortestPathOrder) => {
