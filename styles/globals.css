@@ -245,3 +245,8 @@ a {
     background-color: rgb(255, 254, 106);
   }
 }
+
+.canvas {
+  width: 100vw;
+  height: 93vh;
+}
