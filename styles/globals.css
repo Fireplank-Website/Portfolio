@@ -250,3 +250,18 @@ a {
   width: 100vw;
   height: 93vh;
 }
+
+.controls {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  z-index: 50;
+  min-width: 16rem;
+  left: 50%;
+  transform: translateX(-50%);
+  
+}
+
+.controls > * {
+  margin: 20px 10px;
+}
