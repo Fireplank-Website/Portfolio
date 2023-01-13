@@ -248,7 +248,7 @@ a {
 
 .canvas {
   width: 100vw;
-  height: 93vh;
+  height: 89vh;
 }
 
 .controls {
@@ -264,4 +264,54 @@ a {
 
 .controls > * {
   margin: 20px 10px;
+}
+
+.annotation {
+  transform: translate3d(-50%, -150%, 0);
+  text-align: left;
+  background: #7676aa;
+  color: rgb(7, 6, 20);
+  padding: 16px;
+  border-radius: 5px;
+  font-size: 2rem;
+}
+
+.dialog {
+  z-index: 999;
+  margin-top: 70px;	
+  background: rgba(88, 88, 207, 0.5);
+  position: fixed;
+  right: 0;
+  top: 0;
+  border-bottom-left-radius: 10px;
+  color: aliceblue;
+  padding: 8px;
+}
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+svg {
+  cursor: pointer;
+}
+.details {
+  margin-top: 12px;
+}
+.article-link {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 999;
+  color: whitesmoke;
+  font-size: 0.75rem;
+  font-family: "Nunito", sans-serif;
+  background: linear-gradient(90deg, #4666b7 0%, #a242b1 100%);
+  box-shadow: 5px 5px 7px rgba(171, 125, 187, 0.22);
+  border-radius: 99px;
+  padding: 8px 16px;
+  text-decoration: none;
 }

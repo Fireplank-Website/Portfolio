@@ -1,10 +1,11 @@
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { Suspense, useMemo, useRef, useState } from 'react';
-import { Box, OrbitControls } from '@react-three/drei';
+import { Box, OrbitControls, Html } from '@react-three/drei';
 import { Icon, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from '@chakra-ui/react';
 import { AiFillFastForward } from 'react-icons/ai';
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs';
 import * as THREE from 'three';
+import Dialog from '../../../components/Solar-System/Dialogue';
 
 const Planet = (props) => {
     // This reference gives us direct access to the THREE.Mesh object
@@ -38,40 +39,31 @@ const Planet = (props) => {
     }
     );
     // Return the view
-    if (props.sun) {
-        return (
-            <>
-                <mesh
-                    position={props.position}
-                    ref={ref}
-                    scale={props.size}
-                    onClick={(e) => console.log('click')}
-                >
-                    <sphereGeometry args={[1, 32, 32]} />
-                    <meshBasicMaterial map={texture} />
-                    
-                </mesh>
-                <Ecliptic xRadius={props.xRadius} zRadius={props.zRadius}/>
-                {props.ring && <Ring radius={props.ringRadius} tube={props.ringTube} position={props.position} color={props.ringColor} planetRef={ref} />}
-            </>
-        );
-    } else {
-        return (
-            <>
-                <mesh
-                    position={props.position}
-                    ref={ref}
-                    scale={props.size}
-                    onClick={(e) => console.log('click')}
-                >
-                    <sphereGeometry args={[1, 32, 32]} />
-                    <meshStandardMaterial map={texture} />
-                </mesh>
-                <Ecliptic xRadius={props.xRadius} zRadius={props.zRadius}/>
-                {props.ring && <Ring radius={props.ringRadius} tube={props.ringTube} position={props.position} color={props.ringColor} planetRef={ref} />}
-            </>
-        )
-    }
+    return (
+        <>
+            <mesh
+                position={props.position}
+                ref={ref}
+                scale={props.size}
+                onClick={(e) => {
+                    props.setIsDialogOpen(!props.isDialogOpen);
+                    props.setDialogueData({'title':props.name,
+                    details:`Size: ${props.size} km\n
+                    Distance from Sun: ${props.distanceFromSun}\n
+                    Rotation Period: ${props.rotationPeriod} Days\n
+                    Orbital Period: ${props.orbitalPeriod} Days\n
+                    Gravity: ${props.gravity} m/s²\n
+                    Surface Area: ${props.surfaceArea} km²\n`})
+                }
+                }
+            >
+                <sphereGeometry args={[1, 32, 32]} />
+                {props.sun ? <meshBasicMaterial map={texture} /> : <meshStandardMaterial map={texture} />}
+            </mesh>
+            <Ecliptic xRadius={props.xRadius} zRadius={props.zRadius}/>
+            {props.ring && <Ring radius={props.ringRadius} tube={props.ringTube} position={props.position} color={props.ringColor} planetRef={ref} />}
+        </>
+    )
 }
 
 const Ecliptic = ({ xRadius = 1, zRadius = 1}) => {
@@ -152,6 +144,9 @@ const SolarSystem = () => {
     const scalingFactor = 500;
     const sizeScalingFactor = 20;
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [dialogueData, setDialogueData] = useState({});
+
     // Asteroid Belt
     const asteroidColor = "#7f7f7f";
     const asteroidSize = 0.2*sizeScalingFactor;
@@ -183,8 +178,11 @@ const SolarSystem = () => {
 
     return (
         <>
-            
             <div className='canvas'>
+                {isDialogOpen && <Dialog 
+                    hideDialog={() => setIsDialogOpen(false)}
+                    dialogData={dialogueData}
+                />}
                 <div className='controls'>
                     <button onClick={() => setPaused(!paused)}>
                         {paused ? <BsPlayFill size={30}/> : <BsPauseFill size={30}/>}
@@ -205,21 +203,22 @@ const SolarSystem = () => {
                         <ambientLight intensity={0.25}/>
                         { /* Render the sun and the light */ }
                         <pointLight position={[0, 0, 0]} intensity={1.5}/>   
-                        <Planet color={"#E1DC59"} size={350} position={[0, 0, 0]} xRadius={0} zRadius={0} texture={'/textures/sun.jpg'} sun={true} paused={paused} gameSpeed={speed}/>
+                        <Planet color={"#E1DC59"} size={350} position={[0, 0, 0]} xRadius={0} zRadius={0}
+                            texture={'/textures/sun.jpg'} sun={true} paused={paused} gameSpeed={speed} name={"Sun"} distanceFromSun={"0"} orbitalPeriod={"0"} rotationPeriod={"25 days"} surfaceArea={"1.4 million km²"} gravity={"274 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
 
                         { /* Render the planets */ }
                         { /* Mercury */ }
                         <Planet color={"#B8B8B8"} size={2*sizeScalingFactor} position={[1*scalingFactor, 0, 0]} offset={offsets.current[0]} paused={paused} gameSpeed={speed}
-                            xRadius={1*scalingFactor} zRadius={1*scalingFactor} speed={47.87} texture={'/textures/mercury.jpg'}/>
+                            xRadius={1*scalingFactor} zRadius={1*scalingFactor} speed={47.87} texture={'/textures/mercury.jpg'} name={"Mercury"} distanceFromSun={"57.9 million km"} orbitalPeriod={"88 days"} rotationPeriod={"58 days"} surfaceArea={"74 million km²"} gravity={"3.7 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
                         { /* Venus */ }
                         <Planet color={"#E1DC59"} size={2.3*sizeScalingFactor} position={[1.42*scalingFactor, 0, 0]} offset={offsets.current[1]} paused={paused} gameSpeed={speed}
-                            xRadius={1.42*scalingFactor} zRadius={1.42*scalingFactor} speed={35.02} texture={'/textures/venus.jpg'}/>
+                            xRadius={1.42*scalingFactor} zRadius={1.42*scalingFactor} speed={35.02} texture={'/textures/venus.jpg'} name={"Venus"} distanceFromSun={"108.2 million km"} orbitalPeriod={"225 days"} rotationPeriod={"243 days"} surfaceArea={"460 million km²"} gravity={"8.87 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
                         { /* Earth */ }
                         <Planet color={"#2E8B57"} size={2.5*sizeScalingFactor} position={[1.8*scalingFactor, 0, 0]} offset={offsets.current[2]} paused={paused} gameSpeed={speed}
-                            xRadius={1.8*scalingFactor} zRadius={1.8*scalingFactor} speed={29.78} texture={'/textures/earth.jpg'}/>
+                            xRadius={1.8*scalingFactor} zRadius={1.8*scalingFactor} speed={29.78} texture={'/textures/earth.jpg'} name={"Earth"} distanceFromSun={"149.6 million km"} orbitalPeriod={"365 days"} rotationPeriod={"1 day"} surfaceArea={"510 million km²"} gravity={"9.8 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
                         { /* Mars */ }
                         <Planet color={"#B22222"} size={2.3*sizeScalingFactor} position={[2.32*scalingFactor, 0, 0]} offset={offsets.current[3]} paused={paused} gameSpeed={speed}
-                            xRadius={2.32*scalingFactor} zRadius={2.32*scalingFactor} speed={24.077} texture={'/textures/mars.jpg'}/>
+                            xRadius={2.32*scalingFactor} zRadius={2.32*scalingFactor} speed={24.077} texture={'/textures/mars.jpg'} name={"Mars"} distanceFromSun={"227.9 million km"} orbitalPeriod={"687 days"} rotationPeriod={"1.03 days"} surfaceArea={"144 million km²"} gravity={"3.7 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
 
                         {/*Asteroid Belt */}
                         {Array.from({ length: asteroidCount }, (_, i) => {
@@ -241,16 +240,20 @@ const SolarSystem = () => {
 
                         { /* Jupiter */ }
                         <Planet color={"#F1C40F"} size={7.5*sizeScalingFactor} position={[5.2*scalingFactor, 0, 0]} offset={offsets.current[4]} paused={paused} gameSpeed={speed}
-                            xRadius={5.2*scalingFactor} zRadius={5.2*scalingFactor} ring={true} ringRadius={12*sizeScalingFactor} ringTube={0.5*sizeScalingFactor} ringColor={'#F1C40F'} speed={13.07} texture={'/textures/jupiter.jpg'}/>
+                            xRadius={5.2*scalingFactor} zRadius={5.2*scalingFactor} ring={true} ringRadius={12*sizeScalingFactor} ringTube={0.5*sizeScalingFactor}
+                            ringColor={'#F1C40F'} speed={13.07} texture={'/textures/jupiter.jpg'} name={"Jupiter"} distanceFromSun={"778.6 million km"} orbitalPeriod={"12 years"} rotationPeriod={"9.9 hours"} surfaceArea={"6.1 billion km²"} gravity={"24.79 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
                         { /* Saturn */ }
                         <Planet color={"#F1C40F"} size={5.5*sizeScalingFactor} position={[9.5*scalingFactor, 0, 0]} offset={offsets.current[5]} paused={paused} gameSpeed={speed}
-                            xRadius={9.5*scalingFactor} zRadius={9.5*scalingFactor} ring={true} ringRadius={10*sizeScalingFactor} ringTube={0.5*sizeScalingFactor} ringColor={'#F1C40F'} speed={9.69} texture={'/textures/saturn.jpg'}/>
+                            xRadius={9.5*scalingFactor} zRadius={9.5*scalingFactor} ring={true} ringRadius={10*sizeScalingFactor} ringTube={0.5*sizeScalingFactor}
+                            ringColor={'#F1C40F'} speed={9.69} texture={'/textures/saturn.jpg'} name={"Saturn"} distanceFromSun={"1.4 billion km"} orbitalPeriod={"29 years"} rotationPeriod={"10.7 hours"} surfaceArea={"4.3 billion km²"} gravity={"10.44 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
                         { /* Uranus */ }
                         <Planet color={"#00BFFF"} size={4.5*sizeScalingFactor} position={[19*scalingFactor, 0, 0]} offset={offsets.current[6]} paused={paused} gameSpeed={speed}
-                            xRadius={19*scalingFactor} zRadius={19*scalingFactor} ring={true} ringRadius={10*sizeScalingFactor} ringTube={0.5*sizeScalingFactor} ringColor={'#00BFFF'} speed={6.81} texture={'/textures/uranus.jpg'}/>
+                            xRadius={19*scalingFactor} zRadius={19*scalingFactor} ring={true} ringRadius={10*sizeScalingFactor} ringTube={0.5*sizeScalingFactor}
+                            ringColor={'#00BFFF'} speed={6.81} texture={'/textures/uranus.jpg'} name={"Uranus"} distanceFromSun={"2.9 billion km"} orbitalPeriod={"84 years"} rotationPeriod={"17.2 hours"} surfaceArea={"8.1 billion km²"} gravity={"8.87 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
                         { /* Neptune */ }
                         <Planet color={"#F1C40F"} size={4.3*sizeScalingFactor} position={[20.07*scalingFactor, 0, 0]} offset={offsets.current[7]} paused={paused} gameSpeed={speed}
-                            xRadius={20.07*scalingFactor} zRadius={20.07*scalingFactor} ring={true} ringRadius={10*sizeScalingFactor} ringTube={0.5*sizeScalingFactor} ringColor={'#F1C40F'} speed={5.43} texture={'/textures/neptune.jpg'}/>
+                            xRadius={20.07*scalingFactor} zRadius={20.07*scalingFactor} ring={true} ringRadius={10*sizeScalingFactor} ringTube={0.5*sizeScalingFactor}
+                            ringColor={'#F1C40F'} speed={5.43} texture={'/textures/neptune.jpg'}  name={"Neptune"} distanceFromSun={"4.5 billion km"} orbitalPeriod={"165 years"} rotationPeriod={"16.1 hours"} surfaceArea={"7.6 billion km²"} gravity={"11.15 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogueData={setDialogueData}/>
                     </Suspense>
                 </Canvas>
                 
