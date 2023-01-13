@@ -247,8 +247,9 @@ a {
 }
 
 .canvas {
+  overflow-y: hidden;
   width: 100vw;
-  height: 89vh;
+  height: 93vh;
 }
 
 .controls {
@@ -280,12 +281,12 @@ a {
   z-index: 999;
   margin-top: 70px;	
   background: rgba(88, 88, 207, 0.5);
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
   border-bottom-left-radius: 10px;
   color: aliceblue;
-  padding: 8px;
+  padding-right: 21rem;
 }
 .dialog-header {
   display: flex;
