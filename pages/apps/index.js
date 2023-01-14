@@ -51,7 +51,7 @@ const App = ({ project }) => {
             >
                 {project.description}
             </Text>
-            <Box bottom={10} position={'absolute'} width={remrange(15,30)}>
+            <Box >
                 <hr color="orange" style={{ margin: '1rem' }}/>
                 <Box justifyContent="center" display={"flex"} padding="0 2rem 1rem 2rem">
                     <Link href={project.play}>
@@ -78,8 +78,8 @@ const Apps = () => {
                 templateColumns="repeat(auto-fill, 350px)"
                 gap="1rem"
                 padding="3rem"
-                paddingLeft={{ base: "1rem", md: "10rem" }}
-                placeItems={"top"}>
+                paddingLeft={{ base: "0rem", md: "10rem" }}
+                placeItems={"end"}>
                     {apps.map((app, i) => (
                       <App key={`app${i}`} project={app}/>
                     ))}

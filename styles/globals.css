@@ -260,8 +260,14 @@ a {
   min-width: 16rem;
   left: 50%;
   transform: translateX(-50%);
-  
 }
+
+@media (max-width: 768px) {
+  .controls {
+    bottom: 8rem;
+  }
+}
+
 
 .controls > * {
   margin: 20px 10px;
