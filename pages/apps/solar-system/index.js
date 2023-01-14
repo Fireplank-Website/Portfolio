@@ -1,6 +1,6 @@
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Button, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, ring, Slider, SliderFilledTrack, SliderThumb, SliderTrack, useDisclosure } from '@chakra-ui/react';
 import { AiFillFastForward } from 'react-icons/ai';
 import { BsPauseFill, BsPlayFill, BsQuestionCircle } from 'react-icons/bs';
@@ -11,6 +11,9 @@ import { planets } from '../../../constants/constants';
 const Planet = (props) => {
     // This reference gives us direct access to the THREE.Mesh object
     const ref = useRef();
+    if (ref.current) {
+        ref.current.name = props.name;
+    }
     // Load the textures
     const texture = useLoader(THREE.TextureLoader, props.texture);
     useFrame((state, delta) => {
@@ -22,31 +25,34 @@ const Planet = (props) => {
             state.clock.elapsedTime = old;
         }
 
-        // if mesh exists in props.planetMeshes, update it, else add it
-        // if (props.planetMeshes.find((planetMesh) => planetMesh.uuid === props.uuid)) {
-        //     props.planetMeshes = props.planetMeshes.map((planetMesh) => {
-        //         if (planetMesh.uuid === props.uuid) {
-        //             planetMesh = ref.current;
-        //         }
-        //         return planetMesh;
-        //     });
-        // } else {
-        //     props.setPlanetMeshes([...props.planetMeshes, ref.current]);
-        // }
-        // const raycaster = new THREE.Raycaster();
-        // const camera = state.camera;
-        // var mouse = ref.current.mouse;
-        // if (!mouse) mouse = { x: 0, y: 0 };
-        // raycaster.setFromCamera(mouse, camera);
-        // const intersects = raycaster.intersectObjects(props.planetMeshes);
-        // if (intersects.length > 0) {
-        //     console.log(intersects[0].object.uuid);
-        //     camera.position.set(0, 0, 0);
-        // }
-
-
+        // prevent camera from clipping with background
+        const camera = state.camera;
+        // calculate distance from camera to 0,0,0
+        const cameraDistance = Math.sqrt(camera.position.x * camera.position.x + camera.position.y * camera.position.y + camera.position.z * camera.position.z);
+        if (cameraDistance > 54000) {
+            const newCameraPosition = state.camera.position.normalize().multiplyScalar(54000);
+            state.camera.position.set(newCameraPosition.x, newCameraPosition.y, newCameraPosition.z);
+        }
+        
+        // check if camera is clipping with planet (this code took way too long to figure out)
+        if (props.controls) {
+            props.raycaster.set(props.controls.current.target, props.dir.subVectors(camera.position, props.controls.current.target).normalize());
+            const intersects = props.raycaster.intersectObject(ref.current);
+            if (intersects.length > 0) {
+                // check if camera is inside planet
+                if (intersects[0].distance + props.size + 70 > cameraDistance && cameraDistance > intersects[0].distance) {
+                    var boost = 50; 
+                    if (props.size > 100) {
+                        boost = 180;
+                    }
+                    // block camera from clipping with planet by moving it back
+                    const newCameraPosition = props.dir.multiplyScalar(intersects[0].distance + props.size + boost);
+                    camera.position.set(newCameraPosition.x, newCameraPosition.y, newCameraPosition.z);
+                }   
+            }
+        }
+        
         const gameSpeed = props.gameSpeed <= 60 ? props.gameSpeed / 50 : props.gameSpeed <= 85 ? props.gameSpeed / 5 : props.gameSpeed;
-
         // Rotate the planet
         ref.current.rotation.y += delta * gameSpeed / 10;
 
@@ -133,33 +139,10 @@ const Ring = ({ radius = 1, tube = 10, radialSegments = 64, tubularSegments = 64
 };
 
 
-// const CameraSettings = (props) => {
-//     // Get the camera and the controls from the useThree hook
-//     const { camera, controls } = useThree();
-
-//     const raycaster = new THREE.Raycaster();
-
-//     useFrame((state, delta) => {
-//         // Update the raycaster with the camera's position and direction
-//         raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-//         // Check for intersections with the planets
-//         const intersections = raycaster.intersectObjects(props.planets);
-//         if (intersections.length > 0) {
-//             // If an intersection is found, prevent the camera from moving any further
-//             camera.position.lerp(intersections[0].point, 0.1);
-//         }
-//     });
-// }
-
-const Initalize = () => {
+const Initalize = (props) => {
     // load background
     const background = useLoader(THREE.TextureLoader, '/textures/milky_way.jpg');
 
-    // // loading manager
-    // const manager = new THREE.LoadingManager();
-    // manager.onStart = (url, itemsLoaded, itemsTotal) => {
-    //     console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-    // };
     return (
         <mesh>
             <sphereGeometry args={[55000, 64, 64]} />
@@ -176,7 +159,13 @@ const SolarSystem = () => {
     const [dialogData, setDialogData] = useState({});
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [planetMeshes, setPlanetMeshes] = useState([]);
+
+
+    const raycaster = new THREE.Raycaster();
+    const dir = new THREE.Vector3();
     
+    const controls = useRef();
+
     // Asteroid Belt
     const asteroidColor = "#7f7f7f";
     const asteroidSize = 0.2*sizeScalingFactor;
@@ -238,10 +227,11 @@ const SolarSystem = () => {
                 </button>
 
             </div>
+            
             <Canvas camera={{ position: [2600, 1500, -600], fov: 45, far: 110000, near:0.1 }}>
                 <Suspense fallback={null}>
                     <Initalize />
-                    <OrbitControls minDistance={500} maxDistance={50000}/>
+                    <OrbitControls minDistance={500} maxDistance={50000} ref={controls} />
                     <ambientLight intensity={0.25}/>
                     { /* Render the sun and the light */ }
                     <pointLight position={[0, 0, 0]} intensity={1.5}/>   
@@ -281,6 +271,9 @@ const SolarSystem = () => {
                             ringTube={0.5*sizeScalingFactor}
                             planetMeshes={planetMeshes}
                             setPlanetMeshes={setPlanetMeshes}
+                            controls={controls}
+                            raycaster={raycaster}
+                            dir={dir}
                         />
                     ))}
 
@@ -303,7 +296,6 @@ const SolarSystem = () => {
                     })}
                     </Suspense>
             </Canvas>
-            
         </div>
     )
 }

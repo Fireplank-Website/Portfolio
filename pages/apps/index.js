@@ -15,7 +15,7 @@ const App = ({ project }) => {
         >
             <Image
                 width={"100%"}
-                height={"100%"}
+                height={"10rem"}
                 overflow={"hidden"}
                 src={project.image}
                 alt="app image"
@@ -46,15 +46,18 @@ const App = ({ project }) => {
                 opacity={0.8}
                 fontStyle="2rem"
                 lineHeight={"24px"}
-                textAlign="justify"
+                paddingBottom={"5rem"}
+                justifyItems="center"
             >
                 {project.description}
             </Text>
-            <hr color="orange" style={{ margin: '1rem' }}/>
-            <Box justifyContent="center" display={"flex"} padding="0 2rem 1rem 2rem">
-                <Link href={project.play}>
-                    <Button colorScheme='orange' size='md' mt="1rem">Open</Button>
-                </Link>
+            <Box bottom={10} position={'absolute'} width={remrange(15,30)}>
+                <hr color="orange" style={{ margin: '1rem' }}/>
+                <Box justifyContent="center" display={"flex"} padding="0 2rem 1rem 2rem">
+                    <Link href={project.play}>
+                        <Button colorScheme='orange' size='md' mt="1rem">Open</Button>
+                    </Link>
+                </Box>
             </Box>
         </Box>
     )
@@ -76,7 +79,7 @@ const Apps = () => {
                 gap="1rem"
                 padding="3rem"
                 paddingLeft={{ base: "1rem", md: "10rem" }}
-                placeItems={"center"}>
+                placeItems={"top"}>
                     {apps.map((app, i) => (
                       <App key={`app${i}`} project={app}/>
                     ))}

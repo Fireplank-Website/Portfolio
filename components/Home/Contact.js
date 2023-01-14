@@ -78,15 +78,15 @@ const Contact = () => {
                         <form onSubmit={handleSubmit}>
                             <Box className={styles.inputGroup}>
                                 <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='name'>Name</Text>
-                                <Input height="1.75rem" paddingInlineStart={"0.3rem"} borderRadius={"5px"} type="text" required value={name} placeholder="name" onChange={(e)=>{setName(e.target.value)}}  size={["sm", "md"]}/> 
+                                <Input height="2.1rem" paddingInlineStart={"0.4rem"} borderRadius={"5px"} type="text" required value={name} placeholder="name" onChange={(e)=>{setName(e.target.value)}}  size={["sm", "md"]}/> 
                             </Box>
                             <Box className={styles.inputGroup}>
                                 <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='email'>Email</Text>
-                                <Input  height="1.75rem" paddingInlineStart={"0.3rem"} borderRadius={"5px"} placeholder="email" required type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}  size={["sm", "md"]}/> 
+                                <Input  height="2.1rem" paddingInlineStart={"0.4rem"} borderRadius={"5px"} placeholder="email" required type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}  size={["sm", "md"]}/> 
                             </Box>
                             <Box className={styles.inputGroup}>
                                 <Text fontWeight={600} fontSize={["ml", "xl"]} htmlFor='message' paddingBottom={"0.2rem"}>Message</Text>
-                                <Textarea paddingInlineStart={"0.3rem"} borderRadius={"5px"} type="text" required placeholder="message" value={message} onChange={(e)=>{setMessage(e.target.value)}}  size={["sm", "md"]}/> 
+                                <Textarea paddingInlineStart={"0.4rem"} borderRadius={"5px"} type="text" required placeholder="message" value={message} onChange={(e)=>{setMessage(e.target.value)}}  size={["sm", "md"]}/> 
                             </Box>
                             <Box paddingTop="0.5rem">
                                 <HCaptcha

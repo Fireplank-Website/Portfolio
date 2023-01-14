@@ -5,27 +5,26 @@ import { FaProjectDiagram } from 'react-icons/fa';
 
 export const projects = [
     {
-        title: "Pathfinding Visualizer",
-        description: "A pathfinding visualizer that can find the shortest path from the start node to the finish.",
-        image: "/images/pathfinding.png",
-        tags: ["Next.js", "Visualization", "Data Structures & Algorithms"],
-        source: "https://github.com/Fireplank-Website/Portfolio/tree/main/pages/apps/visualizer",
-        visit: "/apps/visualizer",
+        title: "3D Solar System Simulation",
+        description: "A 3D solar system simulation built using Three.js. It includes planets, a sun, orbit paths, and features a user-controllable game speed, as well as a modal dialog displaying information on selected planet.",
+        image: "/images/solar-system.png",
+        tags: ["Three.js", "3D Graphics", "Data Structures & Algorithms"],
+        source: "https://github.com/Fireplank-Website/Portfolio/tree/main/pages/apps/solar-system",
+        visit: "/apps/solar-system",
         id: 0
     },
     {
-        title: "Sorting Visualizer",
-        description: "A sorting visualizer that visually sorts an list using various sorting algorithms and visualization techniques.",
-        image: "/images/sorting.png",
-        play: "/apps/sorting",
+        title: "Pathfinding & Sorting Visualizer",
+        description: "A pathfinding & sorting visualizers that can find the shortest path from the start node to the finish and visually sort an list using various sorting algorithms and visualization techniques.",
+        image: "/images/visualizer.jpg",
         tags: ["Next.js", "Visualization", "Data Structures & Algorithms"],
-        source: "https://github.com/Fireplank-Website/Portfolio/tree/main/pages/apps/sorting",
-        visit: "/apps/sorting",
+        source: "https://github.com/Fireplank-Website/Portfolio/tree/main/pages/apps",
+        visit: "/apps",
         id: 1
     },
     {
-        title: "Chess Bot",
-        description: "A powerful chess bot that can beat most beginner to intermediate players.",
+        title: "Chess Bots",
+        description: "Advanced and strong chess bots made using various programming languages and algorithms.",
         image: "/images/chess.jpg",
         tags: ["Data Structures", "Algorithms", "Rust", "AI"],
         source: "https://github.com/FirePlank/HydroChess",
@@ -45,18 +44,25 @@ export const projects = [
 
 export const apps = [
     {
+        title: "3D Solar System Simulation",
+        description: "A 3D solar system simulation built using Three.js. It includes planets, a sun, orbit paths, and features a user-controllable game speed, as well as a modal dialog displaying information on selected planet.",
+        image: "/images/solar-system.png",
+        play: "/apps/solar-system",
+        id: 0
+    },
+    {
         title: "Pathfinding Visualizer",
         description: "A pathfinding visualizer that can find the shortest path from the start node to the finish.",
         image: "/images/pathfinding.png",
         play: "/apps/visualizer",
-        id: 0
+        id: 1
     },
     {
         title: "Sorting Visualizer",
         description: "A sorting visualizer that visually sorts an list using various sorting algorithms and visualization techniques.",
         image: "/images/sorting.png",
         play: "/apps/sorting",
-        id: 0
+        id: 2
     }
 ];
 
@@ -74,7 +80,7 @@ export const LinkItems = [
     { name: 'Technologies', icon: MdBiotech, path: '#tech' },
     { name: 'About', icon: BsInfoCircle, path: '#about' },
     { name: 'Contact', icon: RiContactsBookLine, path: '#contact' },
-  ];
+];
 
 export const TimeLineData = [
     { year: 2019, text: 'Started my journey', },

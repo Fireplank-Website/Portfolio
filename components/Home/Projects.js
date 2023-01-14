@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Heading, HStack, Image, Link, Text } from "@chakra-ui/react"
+import { Box, Button, Grid, Heading, Image, Text } from "@chakra-ui/react"
 import { projects } from "../../constants/constants"
 
 function remrange(start, end) {
@@ -12,10 +12,11 @@ const Project = ({ project }) => {
             boxShadow="3px 3px 20px rgba(80, 78, 78, 0.5)"
             textAlign={"center"}
             width={remrange(15,30)}
+            position={'relative'}
         >
             <Image
                 width={"100%"}
-                height={"100%"}
+                height={"10rem"}
                 overflow={"hidden"}
                 src={project.image}
                 alt="project image"
@@ -46,29 +47,30 @@ const Project = ({ project }) => {
                 opacity={0.8}
                 fontStyle="2rem"
                 lineHeight={"24px"}
-                textAlign="justify"
             >
                 {project.description}
             </Text>
-            <hr color="orange" style={{ margin: '1rem' }}/>
-            <Box
-            display={"flex"}
-            justifyContent={"space-around"}
-            padding="1rem"
-            >
-                {project.tags.map((tag, i) => (
-                    <Text key={`tag${i}`} color="gray.400" pl={"0.4rem"} pr="0.4rem" fontSize={["0.5rem", "0.6rem", "0.8rem", "1rem"]}>{tag}</Text>
-                ))}
-            </Box>
-            <Box justifyContent={project.visit === "" ? "center" : "space-between"} display={"flex"} padding="0 2rem 1rem 2rem">
-                <a href={project.source} target="_blank" rel="noopener noreferrer">
-                    <Button colorScheme='orange' size='md' mt="1rem">Source</Button>
-                </a>
-                {project.visit !== "" && 
-                    <a href={project.visit}>
-                        <Button colorScheme='orange' size='md' mt="1rem">&nbsp;Visit&nbsp;</Button>
+            <Box>
+                <hr color="orange" style={{ margin: '1rem' }}/>
+                <Box
+                display={"flex"}
+                justifyContent={"space-around"}
+                padding="1rem"
+                >
+                    {project.tags.map((tag, i) => (
+                        <Text key={`tag${i}`} color="gray.400" pl={"0.4rem"} pr="0.4rem" fontSize={["0.5rem", "0.6rem", "0.8rem", "1rem"]}>{tag}</Text>
+                    ))}
+                </Box>
+                <Box justifyContent={project.visit === "" ? "center" : "space-between"} display={"flex"} padding="0 2rem 1rem 2rem">
+                    <a href={project.source} target="_blank" rel="noopener noreferrer">
+                        <Button colorScheme='orange' size='md' mt="1rem">Source</Button>
                     </a>
-                }
+                    {project.visit !== "" && 
+                        <a href={project.visit}>
+                            <Button colorScheme='orange' size='md' mt="1rem">&nbsp;Visit&nbsp;</Button>
+                        </a>
+                    }
+                </Box>
             </Box>
         </Box>
     )
@@ -90,7 +92,7 @@ const Projects = () => {
                 templateColumns="repeat(auto-fill, 350px)"
                 gap="1rem"
                 padding="3rem"
-                placeItems={"center"}>
+                placeItems={"end"}>
                     {projects.map((project, i) => (
                       <Project key={`project${i}`} project={project}/>
                     ))}
