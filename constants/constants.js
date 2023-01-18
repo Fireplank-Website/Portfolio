@@ -6,9 +6,9 @@ import { FaProjectDiagram } from 'react-icons/fa';
 export const projects = [
     {
         title: "3D Solar System Simulation",
-        description: "A 3D solar system simulation built using Three.js. It includes planets, a sun, orbit paths, and features a user-controllable game speed, as well as a modal dialog displaying information on selected planet.",
+        description: "A 3D solar system simulation built using Three.js. It includes planets, a sun, orbit paths, and features a user-controllable game speed, as well as a modal dialog displaying information on selected planets.",
         image: "/images/solar-system.png",
-        tags: ["Three.js", "3D Graphics", "Data Structures & Algorithms"],
+        tags: ["Three.js", "3D Graphics", "Physics Simulation"],
         source: "https://github.com/Fireplank-Website/Portfolio/tree/main/pages/apps/solar-system",
         visit: "/apps/solar-system",
         id: 0
@@ -26,7 +26,7 @@ export const projects = [
         title: "Chess Bots",
         description: "Advanced and strong chess bots made using various programming languages and algorithms.",
         image: "/images/chess.jpg",
-        tags: ["Data Structures", "Algorithms", "Rust", "AI"],
+        tags: ["Data Structures & Algorithms", "Rust", "AI"],
         source: "https://github.com/FirePlank/HydroChess",
         visit: "",
         id: 2
@@ -45,7 +45,7 @@ export const projects = [
 export const apps = [
     {
         title: "3D Solar System Simulation",
-        description: "A 3D solar system simulation built using Three.js. It includes planets, a sun, orbit paths, and features a user-controllable game speed, as well as a modal dialog displaying information on selected planet.",
+        description: "A 3D solar system simulation built using Three.js. It includes planets, a sun, orbit paths, and features a user-controllable game speed, as well as a modal dialog displaying information on selected planets.",
         image: "/images/solar-system.png",
         play: "/apps/solar-system",
         id: 0

@@ -13,6 +13,10 @@ const Project = ({ project }) => {
             textAlign={"center"}
             width={remrange(15,30)}
             position={'relative'}
+            _hover={{
+                transform: 'scale(1.05)',
+                transition: 'all 0.1s ease-in-out',
+            }}
         >
             <Image
                 width={"100%"}
@@ -20,6 +24,7 @@ const Project = ({ project }) => {
                 overflow={"hidden"}
                 src={project.image}
                 alt="project image"
+                rounded={"10px 10px 0 0"}
             />
             <Text
                 fontWeight={500}
@@ -58,7 +63,7 @@ const Project = ({ project }) => {
                 padding="1rem"
                 >
                     {project.tags.map((tag, i) => (
-                        <Text key={`tag${i}`} color="gray.400" pl={"0.4rem"} pr="0.4rem" fontSize={["0.5rem", "0.6rem", "0.8rem", "1rem"]}>{tag}</Text>
+                        <Text key={`tag${i}`} color="gray.400" pl={"0.4rem"} pr="0.4rem" fontSize={["0.8rem", "1rem"]}>{tag}</Text>
                     ))}
                 </Box>
                 <Box justifyContent={project.visit === "" ? "center" : "space-between"} display={"flex"} padding="0 2rem 1rem 2rem">
@@ -79,7 +84,7 @@ const Project = ({ project }) => {
 const Projects = () => {
 
     return (
-        <Box className="section" id="projects" maxW={"90%"} ml={{ base: 'none', md: '11rem' }}>
+        <Box className="section" id="projects" maxW={"90%"} ml={{ base: '0', md: '11rem' }}>
             <Box className="section-container">
                 <Heading
                 fontSize={["2.5rem", "3rem", "3.5rem"]}
@@ -90,8 +95,10 @@ const Projects = () => {
             </Box>
             <Grid
                 templateColumns="repeat(auto-fill, 350px)"
-                gap="1rem"
-                padding="3rem"
+                gap={{ base: '2rem', md: '1rem' }}
+                padding="3rem 0 3rem 0"
+                paddingLeft={{ base: '0', md: '5rem' }}
+                marginLeft={{ base: '-2rem', md: '0' }}
                 placeItems={"end"}>
                     {projects.map((project, i) => (
                       <Project key={`project${i}`} project={project}/>

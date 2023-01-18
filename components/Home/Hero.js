@@ -2,6 +2,7 @@ import { Heading, Box, Text } from "@chakra-ui/react";
 import { words } from "../../constants/constants";
 import React from 'react';
 import Typed from 'typed.js';
+
 const Hero = () => {
     // Create reference to store the DOM element containing the animation
 	const el = React.useRef(null);
@@ -26,7 +27,7 @@ const Hero = () => {
           // to prevent memory leaks
           typed.current.destroy();
         }
-      }, [])
+    }, [])
 
     return (
         <Box className="section" ml={{ base: 'none', md: '11rem' }} width={{ base: 'none', md: '90%' }}>
@@ -39,16 +40,17 @@ const Hero = () => {
                 >
                     Hi! I&apos;m a<br />
                     <Heading as="span"
-                    fontWeight={800}
-                    fontFamily={["monospace"]}
-                    fontSize={["1.5rem", "2.0rem", "2.25rem", "2.5rem", "3rem", "3.5rem"]}
-                    lineHeight={["2.5rem", "3rem", "3.5rem"]}
-                    bgGradient='linear-gradient(270deg, #00DBD8 0%, #B133FF 100%)'
-                    transition={"0.5 ease"}
-                    backgroundClip="text"
-                    textColor="transparent"
-                    style={{ whiteSpace: 'pre' }}
-                    ref={el}>​</Heading>
+                        fontWeight={800}
+                        fontFamily={["monospace"]}
+                        fontSize={["1.5rem", "2.0rem", "2.25rem", "2.5rem", "3rem", "3.5rem"]}
+                        lineHeight={["2.5rem", "3rem", "3.5rem"]}
+                        bgGradient='linear-gradient(270deg, #00DBD8 0%, #B133FF 100%)'
+                        transition={"0.5 ease"}
+                        backgroundClip="text"
+                        textColor="transparent"
+                        style={{ whiteSpace: 'pre' }}
+                        ref={el}
+                    />
                 </Heading>
                 <Text
                     fontSize={["1rem", "1.1rem", "1.2rem", "1.3rem", "1.4rem", "1.5rem", "1.6rem", "1.7rem", "1.8rem", "1.9rem", "2rem"]}
