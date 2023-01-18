@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Icon, Input, Text, Textarea, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Heading, Icon, Input, Text, Textarea, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import styles from "../../styles/Contact.module.css";
 import { AiOutlineArrowRight, AiOutlineMail } from "react-icons/ai";
 import { useState } from 'react';
@@ -94,58 +94,58 @@ const Contact = () => {
                 </Heading>
             </Box>
 
-            <div class="contact__container container grid">
-                <div class="contact__content">
+            <div className="contact__container container grid">
+                <div className="contact__content">
                 <Heading as="h3" size="lg" className="contact__title">Talk to Me</Heading>
 
-                    <div class="contact__info">
+                    <div className="contact__info">
                         <Box className="contact__card" boxShadow={useColorModeValue("0 2px 16px hsla(219, 48%, 8%, .1)", "")} backgroundColor={useColorModeValue("white", "")}>
                             <Icon as={RiMailSendLine} size={40} className="contact__card-icon" />
-                            <h3 class="contact__card-title">Email</h3>
-                            <span class="contact__card-data">contact@fireplank.xyz</span>
-                            <a href="mailto:contact@fireplank.xyz" target="_blank" class="contact__button">
+                            <h3 className="contact__card-title">Email</h3>
+                            <span className="contact__card-data">contact@fireplank.xyz</span>
+                            <a href="mailto:contact@fireplank.xyz" target="_blank" rel="noreferrer" className="contact__button">
                                 Write me <AiOutlineArrowRight />
                             </a>
                         </Box>
 
                         <Box className="contact__card" boxShadow={useColorModeValue("0 2px 16px hsla(219, 48%, 8%, .1)", "")} backgroundColor={useColorModeValue("white", "")}>
                             <Icon as={FaDiscord} size={40} className="contact__card-icon"/>
-                            <h3 class="contact__card-title">Discord</h3>
-                            <span class="contact__card-data">FirePlank#2995</span>
-                            <a href="https://discord.com/users/655020762796654592" target="_blank" class="contact__button">
+                            <h3 className="contact__card-title">Discord</h3>
+                            <span className="contact__card-data">FirePlank#2995</span>
+                            <a href="https://discord.com/users/655020762796654592" target="_blank" rel="noreferrer" className="contact__button">
                                 Message me <AiOutlineArrowRight />
                             </a>
                         </Box>
 
                         <Box className="contact__card" boxShadow={useColorModeValue("0 2px 16px hsla(219, 48%, 8%, .1)", "")} backgroundColor={useColorModeValue("white", "")}>
                             <Icon as={FaTwitter} size={40} className="contact__card-icon"/>
-                            <h3 class="contact__card-title">Twitter</h3>
-                            <span class="contact__card-data">@fireplank</span>
-                            <a href="https://twitter.com/fireplank" target="_blank" class="contact__button">
+                            <h3 className="contact__card-title">Twitter</h3>
+                            <span className="contact__card-data">@fireplank</span>
+                            <a href="https://twitter.com/fireplank" target="_blank" rel="noreferrer" className="contact__button">
                                 Check me out <AiOutlineArrowRight />
                             </a>
                         </Box>
                     </div>
                 </div>
 
-                <div class="contact__content">
+                <div className="contact__content">
                     <Heading as="h3" size="lg" className="contact__title">Send me a message</Heading>
 
-                    <form class="contact__form" onSubmit={handleSubmit}>
-                        <div class="contact__form-div">
-                            <label for="" class={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Name</label>
+                    <form className="contact__form" onSubmit={handleSubmit}>
+                        <div className="contact__form-div">
+                            <label htmlFor="" className={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Name</label>
                             {/* <Input variant='' placeholder='Outline' /> */}
-                            <input type="text" placeholder ="name" class={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setName(e.target.value)} />
+                            <input type="text" placeholder ="name" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setName(e.target.value)} />
                         </div>
 
-                        <div class="contact__form-div">
-                            <label for="" class={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Email</label>
-                            <input type="email" placeholder="email" class={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setEmail(e.target.value)} />
+                        <div className="contact__form-div">
+                            <label htmlFor="" className={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Email</label>
+                            <input type="email" placeholder="email" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setEmail(e.target.value)} />
                         </div>
 
-                        <div class="contact__form-div contact__form-area">
-                            <label for="" class={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Message</label>
-                            <textarea name="" id="" cols="30" rows="10" placeholder="message" class={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setMessage(e.target.value)}></textarea>
+                        <div className="contact__form-div contact__form-area">
+                            <label htmlFor="" className={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Message</label>
+                            <textarea name="" id="" cols="30" rows="10" placeholder="message" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setMessage(e.target.value)}></textarea>
                         </div>
                         <Box paddingTop="0.5rem">
                             <HCaptcha
@@ -159,7 +159,7 @@ const Contact = () => {
                             <Button leftIcon={<AiOutlineMail />} colorScheme='green' variant='solid' isLoading={isLoading} loadingText='Sending' type='submit'>
                                 Send Message
                             </Button>
-                            <Text ml="1rem" color={error ? 'red' : useColorModeValue('green', 'lightgreen')}>{info}</Text>
+                            <Text ml="1rem" color={error ? 'red' : 'lightgreen'}>{info}</Text>
                         </Box>
                     </form>
                 </div>
@@ -167,4 +167,4 @@ const Contact = () => {
         </Box>
     )
 }
-export default Contact
+export default Contact;
