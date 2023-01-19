@@ -1,24 +1,23 @@
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { MeshStandardMaterial } from 'three';
 
-function RotatingCube() {
+function RotatingCube({ mouseDown, startPosition, currentPosition, setStartPosition }) {
     // Create a ref to store the cube's mesh
     const cubeRef = useRef();
+    // Create a ref to store the lines' mesh
+    const linesRef = useRef();
 
-    const [speed, setSpeed] = useState(0.1);
-    // State to keep track of the drag
-    const [mouseDown, setMouseDown] = useState(false);
-    const [startPosition, setStartPosition] = useState(new THREE.Vector3(0, 0, 1));
-    const [currentPosition, setCurrentPosition] = useState(new THREE.Vector3(0, 0, 1));
-    const [lastMoveTimestamp, setLastMoveTimestamp] = useState(null);
     const [rotationX, setRotationX] = useState(0);
     const [rotationY, setRotationY] = useState(0);
+    const [speed, setSpeed] = useState(0.005);
 
     useFrame(() => {
         if (!cubeRef.current) return;
 
         const cube = cubeRef.current;
+        const lines = linesRef.current;
         // Update the cube's quaternion based on the drag
         if (mouseDown) {
             // Calculate the difference between the current position and the starting position
@@ -32,11 +31,15 @@ function RotatingCube() {
             // Save the current position as the starting position for the next movement
             setStartPosition(currentPosition);
             
-            setSpeed(0.1);
+            // set speed based on the distance between the current position and the starting position, but have a max speed
+            const distance = Math.abs(deltaX + deltaY);
+            setSpeed(Math.min(distance * 0.002, 0.3));
         } else {
-            // retain the rotation in the same direction
+            // retain the rotation in the same direction while slowing down
             setSpeed(speed * 0.99);
-            if (speed < 0) setSpeed(0);
+            if (speed <= 0.005) {
+                setSpeed(0.005);
+            }
             const mouseMovingUp = currentPosition.y < startPosition.y;
             const mouseMovingDown = currentPosition.y > startPosition.y;
             const mouseMovingLeft = currentPosition.x < startPosition.x;
@@ -48,33 +51,40 @@ function RotatingCube() {
         }
         cube.rotation.x = rotationX;
         cube.rotation.y = rotationY;
+        if (lines) {
+            lines.rotation.x = rotationX;
+            lines.rotation.y = rotationY;
+        }
     });
 
+    const colors = [
+        '#f44336', // red
+        '#4caf50', // green
+        '#2196f3', // blue
+        '#ffc107', // yellow
+        '#ff5722',  // orange
+        '#9c27b0' // purple
+    ];
     return (
-        <mesh
-            ref={cubeRef}
-            onPointerDown={e => {
-                setMouseDown(true);
-                setStartPosition({ x: e.clientX, y: e.clientY });
-            }}
-            onPointerMove={e => {
-                if (!mouseDown) return;
-                setCurrentPosition({ x: e.clientX, y: e.clientY });
-            }}
-            onPointerUp={() => {
-                setMouseDown(false);
-                setLastMoveTimestamp(Date.now());
-            }}
-            onPointerLeave={() => {
-                setMouseDown(false);
-                setLastMoveTimestamp(Date.now());
-            }}
-        >
-            <boxBufferGeometry attach="geometry" args={[5, 5, 5]} />
-            <meshStandardMaterial attach="material" color="hotpink" />
-        </mesh>
+        <>
+            <mesh ref={cubeRef}>
+                <boxBufferGeometry attach="geometry" args={[4, 4, 4]} />
+                {colors.map((color, i) => (
+                    <meshBasicMaterial
+                        attach={`material-${i}`}
+                        key={i}
+                        color={color}
+                    />
+                ))}
+            </mesh>
+            {cubeRef.current && (
+                <lineSegments ref={linesRef}>
+                    <edgesGeometry attach="geometry" args={[cubeRef.current.geometry]} />
+                    <lineBasicMaterial attach="material" color="black" />   
+                </lineSegments>
+            )}
+        </>
     );
 }
-
 
 export default RotatingCube;

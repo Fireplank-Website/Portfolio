@@ -28,7 +28,7 @@ const EmblaCarousel = ({ slides }) => {
         onSelect();
     }, [embla, onSelect]);
     return (
-        <Box className="embla" width={{ base: '110%', md: '90%'}}>
+        <Box className="embla" width={'90%'}>
         <div className="embla__viewport" ref={viewportRef}>
             <div className="embla__container">
             {slides.map((element, index) => (

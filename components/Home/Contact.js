@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { RiMailSendLine } from "react-icons/ri";
 import { FaDiscord, FaTwitter } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Contact = () => {
     const [name, setName] = useState('');
@@ -94,7 +95,7 @@ const Contact = () => {
                 </Heading>
             </Box>
 
-            <div className="contact__container container grid">
+            <motion.div className="contact__container container grid" initial={{ opacity: 0 }} whileInView={{ opacity: 1}} transition={{ duration: 1, ease: 'easeInOut' }} viewport={{ once: true }}>
                 <div className="contact__content">
                 <Heading as="h3" size="lg" className="contact__title">Talk to Me</Heading>
 
@@ -145,7 +146,7 @@ const Contact = () => {
 
                         <div className="contact__form-div contact__form-area">
                             <label htmlFor="" className={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Message</label>
-                            <textarea name="" id="" cols="30" rows="10" placeholder="message" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setMessage(e.target.value)} maxLength={500}></textarea>
+                            <textarea name="" id="" cols="30" rows="10" placeholder="message" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setMessage(e.target.value)} maxLength={500} />
                         </div>
                         <Box paddingTop="0.5rem">
                             <HCaptcha
@@ -163,7 +164,7 @@ const Contact = () => {
                         </Box>
                     </form>
                 </div>
-            </div>
+            </motion.div>
         </Box>
     )
 }
