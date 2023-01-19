@@ -135,17 +135,17 @@ const Contact = () => {
                         <div className="contact__form-div">
                             <label htmlFor="" className={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Name</label>
                             {/* <Input variant='' placeholder='Outline' /> */}
-                            <input type="text" placeholder ="name" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setName(e.target.value)} />
+                            <input type="text" placeholder ="name" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setName(e.target.value)} maxLength={50} />
                         </div>
 
                         <div className="contact__form-div">
                             <label htmlFor="" className={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Email</label>
-                            <input type="email" placeholder="email" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setEmail(e.target.value)} />
+                            <input type="email" placeholder="email" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setEmail(e.target.value)} maxLength={254} />
                         </div>
 
                         <div className="contact__form-div contact__form-area">
                             <label htmlFor="" className={`${lightTheme ? 'light-mode' : 'contact__form-tag'}`}>Message</label>
-                            <textarea name="" id="" cols="30" rows="10" placeholder="message" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setMessage(e.target.value)}></textarea>
+                            <textarea name="" id="" cols="30" rows="10" placeholder="message" className={`${lightTheme ? 'light-mode-input' : 'contact__form-input'}`} required onChange={(e) => setMessage(e.target.value)} maxLength={500}></textarea>
                         </div>
                         <Box paddingTop="0.5rem">
                             <HCaptcha

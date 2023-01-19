@@ -2,7 +2,9 @@ import { Heading, Box, Text } from "@chakra-ui/react";
 import { words } from "../../constants/constants";
 import React from 'react';
 import Typed from 'typed.js';
-
+import RotatingCube from "../RotatingCube";
+import { Canvas } from "@react-three/fiber";
+        
 const Hero = () => {
     // Create reference to store the DOM element containing the animation
 	const el = React.useRef(null);
@@ -30,7 +32,7 @@ const Hero = () => {
     }, [])
 
     return (
-        <Box className="section" ml={{ base: 'none', md: '11rem' }} width={{ base: 'none', md: '90%' }}>
+        <Box className="section" ml={{ base: 'none', md: '11rem' }} width={{ base: 'none', md: '90%' }} display="flex">
             <Box className="section-container">
                 <Heading
                     fontSize={["2.5rem", "3rem", "3.5rem"]}
@@ -103,6 +105,14 @@ const Hero = () => {
                     onClick={() => window.location = "#about"}>Learn More</Box>
                 </Box>
             </Box>
+            <div position="absolute" top="0" left="0" zIndex="-1" width="100vw" height="100vh">
+                <Canvas camera={{ position: [0, 0, 8] }}>
+                    <ambientLight />
+                    <pointLight position={[10, 10, 10]} />
+                    <RotatingCube />
+                </Canvas>
+            </div>
+
         </Box>
     )
 }

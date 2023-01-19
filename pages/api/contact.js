@@ -6,6 +6,13 @@ export default async function handler(req, res) {
             message: "Unproccesable request, please provide the required fields.",
           });
         }
+
+        // Max length of the message is 500 characters, name is 50 characters and email is 254 characters
+        if (req.body.message.length > 500 || req.body.name.length > 50 || req.body.email.length > 254) {
+          return res.status(422).json({
+            message: "Unproccesable request, please shorten the message or name.",
+          });
+        }
     
         try {
           // Ping the hcaptcha verify API to verify the captcha code received
