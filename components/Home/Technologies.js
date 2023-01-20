@@ -34,8 +34,9 @@ const Technologies = () => {
                     marginBottom={{ base: 'none', sm: '14px' }}
                     display={"flex"}
                     flexDirection="column"
+                    _hover={{ cursor: 'default', color: 'orange' }}
                     >
-                        <Icon as={DiReact} w="3rem" h="3rem"/>
+                        <Icon as={DiReact} w="3rem" h="3rem" _hover={{ cursor: 'default' }} />
                         <Text className="list-title">Frontend</Text>
                         <Text className="list-paragraph">
                             Experience with React, Next.js and more
@@ -46,8 +47,9 @@ const Technologies = () => {
                     marginBottom={{ base: 'none', sm: '14px' }}
                     display={"flex"}
                     flexDirection="column"
+                    _hover={{ cursor: 'default', color: 'orange' }}
                     >
-                        <Icon as={DiDatabase} w="3rem" h="3rem"/>
+                        <Icon as={DiDatabase} w="3rem" h="3rem" _hover={{ cursor: 'default' }} />
                         <Text className="list-title">Backend</Text>
                         <Text className="list-paragraph">
                             Experience with Node, Postgres, MySQL, MongoDB and more
@@ -58,8 +60,9 @@ const Technologies = () => {
                     marginBottom={{ base: 'none', sm: '14px' }}
                     display={"flex"}
                     flexDirection="column"
+                    _hover={{ cursor: 'default', color: 'orange' }}
                     >
-                        <Icon as={MdDesignServices} w="3rem" h="3rem"/>
+                        <Icon as={MdDesignServices} w="3rem" h="3rem" _hover={{ cursor: 'default' }} />
                         <Text className="list-title">UI/UX</Text>
                         <Text className="list-paragraph">
                             Experience with tools like Figma
@@ -70,8 +73,9 @@ const Technologies = () => {
                     marginBottom={{ base: 'none', sm: '14px' }}
                     display={"flex"}
                     flexDirection="column"
+                    _hover={{ cursor: 'default', color: 'orange' }}
                     >
-                        <Icon as={AiFillQuestionCircle} w="3rem" h="3rem"/>
+                        <Icon as={AiFillQuestionCircle} w="3rem" h="3rem" _hover={{ cursor: 'default'  }} />
                         <Text className="list-title">Other</Text>
                         <Text className="list-paragraph">
                             Experience with frameworks like Discord.py, Tensorflow and more

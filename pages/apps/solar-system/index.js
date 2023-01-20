@@ -1,7 +1,7 @@
-import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
-import { Suspense, useEffect, useRef, useState } from 'react';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import { Button, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, ring, Slider, SliderFilledTrack, SliderThumb, SliderTrack, useDisclosure } from '@chakra-ui/react';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import { Suspense, useRef, useState } from 'react';
+import { OrbitControls } from '@react-three/drei';
+import { Box, Button, CircularProgress, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Slider, SliderFilledTrack, SliderThumb, SliderTrack, useDisclosure } from '@chakra-ui/react';
 import { AiFillFastForward } from 'react-icons/ai';
 import { BsPauseFill, BsPlayFill, BsQuestionCircle } from 'react-icons/bs';
 import * as THREE from 'three';
@@ -139,7 +139,7 @@ const Ring = ({ radius = 1, tube = 10, radialSegments = 64, tubularSegments = 64
 };
 
 
-const Initalize = (props) => {
+const Initalize = () => {
     // load background
     const background = useLoader(THREE.TextureLoader, '/textures/milky_way.jpg');
 
@@ -185,117 +185,124 @@ const SolarSystem = () => {
 
     return (
         <div className='canvas'>
-            {isDialogOpen && <Dialog 
-                hideDialog={() => setIsDialogOpen(false)}
-                dialogData={dialogData}
-            />}
-            <Modal isOpen={isOpen} onClose={onClose} returnFocusOnClose={false}>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Usage Guide</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <p>Click on a planet to view more information about it.</p>
-                    <p>Use the slider to control the speed of the planets.</p>
-                    <p>Click on the play/pause button to pause the planets.</p>
-                    <p>Drag the mouse (or touch on mobile) to rotate the camera.</p>
-                    <p>Use the scrollwheel (or pinch on mobile) to zoom in and out.</p>
-                </ModalBody>
-                <ModalFooter>
-                  <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-            
-            <div className='controls'>
-                <button onClick={() => setPaused(!paused)}>
-                    {paused ? <BsPlayFill size={30}/> : <BsPauseFill size={30}/>}
-                </button>
-                <Slider aria-label='slider-ex-4' defaultValue={50} min={1} onChangeEnd={(val) => setSpeed(val)}>
-                    <SliderTrack bg='red.100'>
-                    <SliderFilledTrack bg='tomato' />
-                    </SliderTrack>
-                    <SliderThumb boxSize={6}>
-                    <Icon as={AiFillFastForward} color='tomato' />
-                    </SliderThumb>
-                </Slider>
-                { /* Add question mark icon that when pressed will open a modal explaining how to use the app */}
-                <button onClick={onOpen}>
-                    <BsQuestionCircle size={30}/>
-                </button>
+            <Box position='absolute' textAlign={'center'} top={'50%'} left={'50%'} transform={'translate(-50%, -50%)'}>
+                <CircularProgress isIndeterminate color='blue.500' mb={'0.5rem'} />
+                <br/>
+                Loading the Solar System...
+                <br/>
+                Please wait...
+            </Box>
+           {isDialogOpen && <Dialog 
+               hideDialog={() => setIsDialogOpen(false)}
+               dialogData={dialogData}
+           />}
+           <Modal isOpen={isOpen} onClose={onClose} returnFocusOnClose={false}>
+             <ModalOverlay />
+             <ModalContent>
+               <ModalHeader>Usage Guide</ModalHeader>
+               <ModalCloseButton />
+               <ModalBody>
+                   <p>Click on a planet to view more information about it.</p>
+                   <p>Use the slider to control the speed of the planets.</p>
+                   <p>Click on the play/pause button to pause the planets.</p>
+                   <p>Drag the screen to rotate the camera.</p>
+                   <p>Use the scrollwheel (or pinch on mobile) to zoom in and out.</p>
+               </ModalBody>
+               <ModalFooter>
+                 <Button colorScheme='blue' mr={3} onClick={onClose}>
+                   Close
+                 </Button>
+               </ModalFooter>
+             </ModalContent>
+           </Modal>
 
-            </div>
-            
-            <Canvas camera={{ position: [2600, 1500, -600], fov: 45, far: 110000, near:0.1 }}>
-                <Suspense fallback={null}>
-                    <Initalize />
-                    <OrbitControls minDistance={500} maxDistance={50000} ref={controls} />
-                    <ambientLight intensity={0.25}/>
-                    { /* Render the sun and the light */ }
-                    <pointLight position={[0, 0, 0]} intensity={1.5}/>   
-                    <Planet color={"#E1DC59"} size={350} position={[0, 0, 0]} xRadius={0} zRadius={0}
-                        texture={'/textures/sun.jpg'} sun={true} paused={paused} gameSpeed={speed} name={"Sun"} distanceFromSun={"0 km"} orbitalPeriod={"0 days"} rotationPeriod={"25 days"}
-                        surfaceArea={"1.4 million km²"} gravity={"274 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogData={setDialogData} dialogData={dialogData}
-                        planetMeshes={planetMeshes} setPlanetMeshes={setPlanetMeshes}
-                    />
+           <div className='controls'>
+               <button onClick={() => setPaused(!paused)}>
+                   {paused ? <BsPlayFill size={30}/> : <BsPauseFill size={30}/>}
+               </button>
+               <Slider aria-label='slider-ex-4' defaultValue={50} min={1} onChangeEnd={(val) => setSpeed(val)}>
+                   <SliderTrack bg='red.100'>
+                   <SliderFilledTrack bg='tomato' />
+                   </SliderTrack>
+                   <SliderThumb boxSize={6}>
+                   <Icon as={AiFillFastForward} color='tomato' />
+                   </SliderThumb>
+               </Slider>
+               { /* Add question mark icon that when pressed will open a modal explaining how to use the app */}
+               <button onClick={onOpen}>
+                   <BsQuestionCircle size={30}/>
+               </button>
 
-                    { /* Render the planets */ }
-                    {planets.map((planet, i) => (
-                        <Planet
-                            key={i}
-                            name={planet.name}
-                            distanceFromSun={planet.distanceFromSun}
-                            orbitalPeriod={planet.orbitalPeriod}
-                            rotationPeriod={planet.rotationPeriod}
-                            surfaceArea={planet.surfaceArea}
-                            gravity={planet.gravity}
-                            color={planet.color}
-                            size={planet.size}
-                            position={planet.position}
-                            offset={planet.offset}
-                            xRadius={planet.xRadius}
-                            zRadius={planet.zRadius}
-                            speed={planet.speed}
-                            texture={planet.texture}
-                            paused={paused}
-                            gameSpeed={speed}
-                            setIsDialogOpen={setIsDialogOpen}
-                            isDialogOpen={isDialogOpen}
-                            setDialogData={setDialogData}
-                            dialogData={dialogData}
-                            ring={planet.ring}
-                            ringRadius={planet.ringRadius}
-                            ringColor={planet.ringColor}
-                            ringTube={0.5*sizeScalingFactor}
-                            planetMeshes={planetMeshes}
-                            setPlanetMeshes={setPlanetMeshes}
-                            controls={controls}
-                            raycaster={raycaster}
-                            dir={dir}
-                        />
-                    ))}
+           </div>
 
-                    {/*Asteroid Belt */}
-                    {Array.from({ length: asteroidCount }, (_, i) => {
-                        const angle = angleIncrement * i;
-                        const x = semiMajorAxis * Math.cos(angle);
-                        const y = semiMinorAxis * Math.sin(angle);
-                        const randomness = asteroidOffsets.current[i]; // getting a random value between -50 and 50
-                        return (
-                        <mesh 
-                                key={i} 
-                                position={[x + randomness, randomness/2, y + randomness]}
-                                scale={[asteroidSize, asteroidSize, asteroidSize]}
-                            >
-                                <sphereGeometry args={[1, 32, 32]} />
-                                <meshStandardMaterial color={asteroidColor} />
-                            </mesh>
-                        );
-                    })}
-                    </Suspense>
-            </Canvas>
+           <Canvas camera={{ position: [2600, 1500, -600], fov: 45, far: 110000, near:0.1 }}>
+               <Suspense fallback={null}>
+                   <Initalize />
+                   <OrbitControls minDistance={500} maxDistance={50000} ref={controls} />
+                   <ambientLight intensity={0.25}/>
+                   { /* Render the sun and the light */ }
+                   <pointLight position={[0, 0, 0]} intensity={1.5}/>   
+                   <Planet color={"#E1DC59"} size={350} position={[0, 0, 0]} xRadius={0} zRadius={0}
+                       texture={'/textures/sun.jpg'} sun={true} paused={paused} gameSpeed={speed} name={"Sun"} distanceFromSun={"0 km"} orbitalPeriod={"0 days"} rotationPeriod={"25 days"}
+                       surfaceArea={"1.4 million km²"} gravity={"274 m/s²"} setIsDialogOpen={setIsDialogOpen} isDialogOpen={isDialogOpen} setDialogData={setDialogData} dialogData={dialogData}
+                       planetMeshes={planetMeshes} setPlanetMeshes={setPlanetMeshes}
+                   />
+
+                   { /* Render the planets */ }
+                   {planets.map((planet, i) => (
+                       <Planet
+                           key={i}
+                           name={planet.name}
+                           distanceFromSun={planet.distanceFromSun}
+                           orbitalPeriod={planet.orbitalPeriod}
+                           rotationPeriod={planet.rotationPeriod}
+                           surfaceArea={planet.surfaceArea}
+                           gravity={planet.gravity}
+                           color={planet.color}
+                           size={planet.size}
+                           position={planet.position}
+                           offset={planet.offset}
+                           xRadius={planet.xRadius}
+                           zRadius={planet.zRadius}
+                           speed={planet.speed}
+                           texture={planet.texture}
+                           paused={paused}
+                           gameSpeed={speed}
+                           setIsDialogOpen={setIsDialogOpen}
+                           isDialogOpen={isDialogOpen}
+                           setDialogData={setDialogData}
+                           dialogData={dialogData}
+                           ring={planet.ring}
+                           ringRadius={planet.ringRadius}
+                           ringColor={planet.ringColor}
+                           ringTube={0.5*sizeScalingFactor}
+                           planetMeshes={planetMeshes}
+                           setPlanetMeshes={setPlanetMeshes}
+                           controls={controls}
+                           raycaster={raycaster}
+                           dir={dir}
+                       />
+                   ))}
+
+                   {/*Asteroid Belt */}
+                   {Array.from({ length: asteroidCount }, (_, i) => {
+                       const angle = angleIncrement * i;
+                       const x = semiMajorAxis * Math.cos(angle);
+                       const y = semiMinorAxis * Math.sin(angle);
+                       const randomness = asteroidOffsets.current[i]; // getting a random value between -50 and 50
+                       return (
+                       <mesh 
+                               key={i} 
+                               position={[x + randomness, randomness/2, y + randomness]}
+                               scale={[asteroidSize, asteroidSize, asteroidSize]}
+                           >
+                               <sphereGeometry args={[1, 32, 32]} />
+                               <meshStandardMaterial color={asteroidColor} />
+                           </mesh>
+                       );
+                   })}
+                   </Suspense>
+           </Canvas>
         </div>
     )
 }
