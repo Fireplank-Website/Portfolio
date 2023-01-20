@@ -1,3 +1,10 @@
 .hero {
     display: flex;
 }
+
+.canvas {
+    margin: 0 auto;
+    max-height: 23rem;
+    height: 300px;
+    width: 400px;
+}

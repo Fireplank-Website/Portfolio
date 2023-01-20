@@ -131,7 +131,7 @@ a {
 .section {
   display: flex;
   flex-direction: column;
-  max-width: 65rem;
+  max-width: 56rem;
   box-sizing: content-box;
   position: relative;
   grid-template-columns: 1fr 1fr;
@@ -139,8 +139,8 @@ a {
 }
 
 .section-container {
-  width: 80%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0 0 0 8rem;
   flex-direction: column;
   display: flex;
 }

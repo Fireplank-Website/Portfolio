@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const TimeLine = () => {
     return (
         <motion.div initial={{ opacity: 0, x: -100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} viewport={{ once: true }}>
-            <Box className="section" ml={{ base: 'none', md: '11rem' }} id="about" maxW={"95%"} marginBottom="7.5rem">
+            <Box className="section" ml={{ base: 'none', md: '11rem' }} id="about" maxW={"82%"} marginBottom="7.5rem">
                 <Box className="section-container">
                     <Heading
                     fontSize={["2.5rem", "3rem", "3.5rem"]}

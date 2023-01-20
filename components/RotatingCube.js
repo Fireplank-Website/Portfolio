@@ -1,9 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-import { MeshStandardMaterial } from 'three';
 
-function RotatingCube({ mouseDown, startPosition, currentPosition, setStartPosition }) {
+function RotatingCube({ mouseDown, startPosition, currentPosition, setStartPosition, scale }) {
     // Create a ref to store the cube's mesh
     const cubeRef = useRef();
     // Create a ref to store the lines' mesh
@@ -68,7 +66,7 @@ function RotatingCube({ mouseDown, startPosition, currentPosition, setStartPosit
     return (
         <>
             <mesh ref={cubeRef}>
-                <boxBufferGeometry attach="geometry" args={[4, 4, 4]} />
+                <boxBufferGeometry attach="geometry" args={scale} />
                 {colors.map((color, i) => (
                     <meshBasicMaterial
                         attach={`material-${i}`}

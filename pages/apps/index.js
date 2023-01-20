@@ -12,6 +12,11 @@ const App = ({ project }) => {
             boxShadow="3px 3px 20px rgba(80, 78, 78, 0.5)"
             textAlign={"center"}
             width={remrange(15,30)}
+            position={'relative'}
+            _hover={{
+                transform: 'scale(1.05)',
+                transition: 'all 0.1s ease-in-out',
+            }}
         >
             <Image
                 width={"100%"}
@@ -19,6 +24,7 @@ const App = ({ project }) => {
                 overflow={"hidden"}
                 src={project.image}
                 alt="app image"
+                rounded={"10px 10px 0 0"}
             />
             <Text
                 fontWeight={500}

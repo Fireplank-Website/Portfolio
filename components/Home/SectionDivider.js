@@ -2,7 +2,7 @@ import { Box, Divider } from "@chakra-ui/react"
 
 const SectionDivider = () => {
   return (
-    <Box ml={{ base: 'none', md: '11rem' }} className="section">
+    <Box ml={{ base: 'none', md: '9rem' }} className="section">
       <Box className="section-container">
           <Divider
           display={"flex"}

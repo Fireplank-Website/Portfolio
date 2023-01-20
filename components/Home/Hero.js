@@ -1,10 +1,11 @@
-import { Heading, Box, Text } from "@chakra-ui/react";
+import { Heading, Box, Text, Icon, useColorModeValue } from "@chakra-ui/react";
 import { words } from "../../constants/constants";
 import { useState, useEffect, useRef } from 'react';
 import styles from "../../styles/Hero.module.css";
 import Typed from 'typed.js';
 import RotatingCube from "../RotatingCube";
 import { Canvas } from "@react-three/fiber";
+import { BsHandIndex } from "react-icons/bs";
 import * as THREE from "three";
         
 const Hero = () => {
@@ -40,7 +41,7 @@ const Hero = () => {
 
     return (
         <div className={styles.hero}>
-            <Box className="section" ml={{ base: 'none', md: '11rem' }} width={{ base: 'none', md: '90%' }}>
+            <Box className="section" ml={{ base: 'none', md: '10rem' }} width={{ base: 'none', md: '90%' }}>
                 <Box className="section-container">
                     <Heading
                         fontSize={["2.5rem", "3rem", "3.5rem"]}
@@ -127,8 +128,11 @@ const Hero = () => {
                 }}
                 onPointerUp={() => setMouseDown(false) }
                 onPointerLeave={() => setMouseDown(false) }>
-                    <RotatingCube currentPosition={currentPosition} startPosition={startPosition} mouseDown={mouseDown} setStartPosition={setStartPosition} />
+                    <RotatingCube currentPosition={currentPosition} startPosition={startPosition} mouseDown={mouseDown} setStartPosition={setStartPosition} scale={[5.5, 5.5, 5.5]} />
                 </Canvas>
+                <Box textAlign={"center"} fontSize={"1.2rem"} fontWeight={"500"} color={useColorModeValue("gray.600", "gray.400")}>
+                    <Icon as={BsHandIndex} /> Drag to rotate
+                </Box>
             </div>
         </div>
     )

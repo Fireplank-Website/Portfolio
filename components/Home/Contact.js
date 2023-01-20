@@ -97,11 +97,11 @@ const Contact = () => {
 
             <motion.div className="contact__container container grid" initial={{ opacity: 0 }} whileInView={{ opacity: 1}} transition={{ duration: 1, ease: 'easeInOut' }} viewport={{ once: true }}>
                 <div className="contact__content">
-                <Heading as="h3" size="lg" className="contact__title">Talk to Me</Heading>
+                <Heading as="h3" size="lg" className="contact__title">Talk to me</Heading>
 
                     <div className="contact__info">
                         <Box className="contact__card" boxShadow={useColorModeValue("0 2px 16px hsla(219, 48%, 8%, .1)", "")} backgroundColor={useColorModeValue("white", "")}>
-                            <Icon as={RiMailSendLine} size={40} className="contact__card-icon" />
+                            <Icon as={RiMailSendLine} size={40} className="contact__card-icon" _hover={{ cursor: 'default' }} />
                             <h3 className="contact__card-title">Email</h3>
                             <span className="contact__card-data">contact@fireplank.xyz</span>
                             <a href="mailto:contact@fireplank.xyz" target="_blank" rel="noreferrer" className="contact__button">
@@ -110,7 +110,7 @@ const Contact = () => {
                         </Box>
 
                         <Box className="contact__card" boxShadow={useColorModeValue("0 2px 16px hsla(219, 48%, 8%, .1)", "")} backgroundColor={useColorModeValue("white", "")}>
-                            <Icon as={FaDiscord} size={40} className="contact__card-icon"/>
+                            <Icon as={FaDiscord} size={40} className="contact__card-icon" _hover={{ cursor: 'default' }} />
                             <h3 className="contact__card-title">Discord</h3>
                             <span className="contact__card-data">FirePlank#2995</span>
                             <a href="https://discord.com/users/655020762796654592" target="_blank" rel="noreferrer" className="contact__button">
@@ -119,7 +119,7 @@ const Contact = () => {
                         </Box>
 
                         <Box className="contact__card" boxShadow={useColorModeValue("0 2px 16px hsla(219, 48%, 8%, .1)", "")} backgroundColor={useColorModeValue("white", "")}>
-                            <Icon as={FaTwitter} size={40} className="contact__card-icon"/>
+                            <Icon as={FaTwitter} size={40} className="contact__card-icon" _hover={{ cursor: 'default' }} />
                             <h3 className="contact__card-title">Twitter</h3>
                             <span className="contact__card-data">@fireplank</span>
                             <a href="https://twitter.com/fireplank" target="_blank" rel="noreferrer" className="contact__button">
