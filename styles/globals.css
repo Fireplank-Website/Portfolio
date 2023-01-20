@@ -145,6 +145,13 @@ a {
   display: flex;
 }
 
+@media (max-width: 768px) {
+  .section-container {
+    margin: 0 0 0 1.25rem;
+    max-width: 25rem;
+  }
+}
+
 .section-header {
   font-family: monospace;
   font-weight: 800;
