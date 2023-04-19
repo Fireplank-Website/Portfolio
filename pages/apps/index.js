@@ -1,5 +1,6 @@
 import { Box, Button, Grid, Heading, Image, Link, Text } from "@chakra-ui/react"
 import { apps } from "../../constants/constants"
+import Head from "next/head";
 
 function remrange(start, end) {
     return new Array(end - start).fill().map((d, i) => `${i + start}rem`);
@@ -72,6 +73,16 @@ const App = ({ project }) => {
 const Apps = () => {
     return (
         <Box className="section" paddingTop="2rem" maxW={"90%"}>
+            <Head>
+                <title>Apps - FirePlank</title>
+                <meta property="og:url" content="https://fireplank.xyz/apps" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Apps" />
+                <meta name="description" content="My portfolio website to showcase some of my projects and skills." />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="keywords" content="portfolio, fireplank, tech, technology" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Box className="section-container">
                 <Heading
                 fontSize={["2.5rem", "3rem", "3.5rem"]}

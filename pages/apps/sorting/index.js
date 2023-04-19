@@ -3,6 +3,7 @@ import Node from "../../../components/Sorting/Node";
 import { BsChevronDown, BsFillSquareFill, BsQuestionCircle } from "react-icons/bs";
 import { useRef, useState } from "react";
 import Modal from "../../../components/Modal";
+import Head from "next/head";
 
 function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
@@ -431,6 +432,16 @@ export default function Visualizer() {
 
     return (
         <Box>
+            <Head>
+                <title>Sorting Visualizer - FirePlank</title>
+                <meta property="og:url" content="https://fireplank.xyz/apps/sorting" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Sorting Visualizer" />
+                <meta name="description" content="A sorting visualizer showing the inner working of different sorting algorithms" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="keywords" content="portfolio, fireplank, tech, technology" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Box padding="2rem 0 0 3rem">
                 <Button margin={"1rem"} onClick={() => visualize()}>Visualize</Button>
                 <Menu>

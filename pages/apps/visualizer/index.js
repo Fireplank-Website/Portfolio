@@ -307,6 +307,16 @@ export default function Visualizer() {
 
     return (
         <Box>
+            <Head>
+                <title>Pathfinding Visualizer - FirePlank</title>
+                <meta property="og:url" content="https://fireplank.xyz/apps" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Apps" />
+                <meta name="description" content="A pathfinding visualizer showing the inner working of different pathfinding algorithms" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="keywords" content="portfolio, fireplank, tech, technology" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Box padding="2rem 0 0 3rem">
                 <Button margin={"1rem"} onClick={() => visualize()}>Visualize</Button>
                 <Menu>

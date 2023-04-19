@@ -185,6 +185,16 @@ const SolarSystem = () => {
 
     return (
         <div className='canvas'>
+            <Head>
+                <title>Solar System - FirePlank</title>
+                <meta property="og:url" content="https://fireplank.xyz/apps" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Solar System" />
+                <meta name="description" content="A 3D solar system simulation built with three.js" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="keywords" content="portfolio, fireplank, tech, technology" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Box position='absolute' textAlign={'center'} top={'50%'} left={'50%'} transform={'translate(-50%, -50%)'}>
                 <CircularProgress isIndeterminate color='blue.500' mb={'0.5rem'} />
                 <br/>
