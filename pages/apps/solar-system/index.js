@@ -7,6 +7,7 @@ import { BsPauseFill, BsPlayFill, BsQuestionCircle } from 'react-icons/bs';
 import * as THREE from 'three';
 import Dialog from '../../../components/Solar-System/Dialogue';
 import { planets } from '../../../constants/constants';
+import Head from 'next/head';
 
 const Planet = (props) => {
     // This reference gives us direct access to the THREE.Mesh object

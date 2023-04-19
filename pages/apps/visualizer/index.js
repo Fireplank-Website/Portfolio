@@ -7,6 +7,7 @@ import { FaChevronRight, FaWeightHanging } from "react-icons/fa";
 import { SiTarget } from "react-icons/si";
 import { useRef, useState } from "react";
 import Modal from "../../../components/Modal";
+import Head from "next/head";
 
 const getNewGridWithWallToggled = (grid, row, col, toggle) => {
     const newGrid = grid.slice();
