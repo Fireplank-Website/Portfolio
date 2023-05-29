@@ -63,6 +63,13 @@ export const apps = [
         image: "/images/sorting.png",
         play: "/apps/sorting",
         id: 2
+    },
+    {
+        title: "Bézier Curve Playground",
+        description: "A Bézier curve playground that allows you to create and visualize Bézier curves using De Casteljau's algorithm.",
+        image: "/images/bezier.png",
+        play: "/apps/bezier",
+        id: 3
     }
 ];
 
@@ -87,6 +94,7 @@ export const TimeLineData = [
     { year: 2020, text: 'Shared my projects with the world', },
     { year: 2021, text: 'Worked as a freelance developer', },
     { year: 2022, text: 'Participated in coding competitions and worked in teams', },
+    { year: 2023, text: 'Founded and created my own mobile app and platform', },
 ];
 
 
