@@ -312,7 +312,7 @@ export default function Visualizer() {
                 <title>Pathfinding Visualizer - FirePlank</title>
                 <meta property="og:url" content="https://fireplank.xyz/apps/visualizer" />
                 <meta property="og:type" content="website" />
-                <meta property="og:title" content="Apps" />
+                <meta property="og:title" content="Pathfinding visualizer" />
                 <meta name="description" content="A pathfinding visualizer showing the inner working of different pathfinding algorithms" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta name="keywords" content="portfolio, fireplank, tech, technology" />

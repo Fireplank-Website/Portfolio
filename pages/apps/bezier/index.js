@@ -140,7 +140,7 @@ export default function BezierCurve() {
     );
     context.fill();
 
-    // add new dots for the newl
+    // add new dots for the newly made lines
     context.fillStyle = "red";
     context.strokeStyle = "red";
     context.lineWidth = 2;
@@ -259,7 +259,7 @@ export default function BezierCurve() {
         <title>Bézier Playground - FirePlank</title>
         <meta property="og:url" content="https://fireplank.xyz/apps/bezier" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Apps" />
+        <meta property="og:title" content="Bézier Curve Playground" />
         <meta name="description" content="a bezier playground that allows you to create and visualize bezier curves using de casteljau's algorithm." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="keywords" content="portfolio, fireplank, tech, technology" />
