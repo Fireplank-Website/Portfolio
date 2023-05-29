@@ -19,16 +19,42 @@ import Head from "next/head";
 export default function BezierCurve() {
   const canvasRef = useRef(null);
   const intervalRef = useRef(null);
+
+  const [screenWidth, setWidth] = useState(400);
+  const [screenHeight, setHeight] = useState(300);
+  const handleResize = () => {
+    setWidth(Math.min(Math.round(window.innerWidth * 0.9), 900));
+    setHeight(Math.round(window.innerHeight * 0.4));
+    setPoints(calculatePoints(Math.min(Math.round(window.innerWidth * 0.9), 900), Math.round(window.innerHeight * 0.4)));
+  };
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   const [playSpeed, setPlaySpeed] = useState(1);
   const [animationPlaying, setAnimationPlaying] = useState(false);
-  const [points, setPoints] = useState([
-    [20, 580],
-    [250, 20],
-    [650, 20],
-    [880, 580],
-  ]);
+
+  const calculatePoints = (width, height) => {
+    const x1 = width * 0.05;
+    const y1 = height * 0.95;
+    const x2 = width * 0.25;
+    const y2 = height * 0.05;
+    const x3 = width * 0.75;
+    const y3 = height * 0.05;
+    const x4 = width * 0.95;
+    const y4 = height * 0.95;
+    return [[x1, y1], [x2, y2], [x3, y3], [x4, y4]];
+  };
+
+  const [points, setPoints] = useState(calculatePoints(screenWidth, screenHeight));
+
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [t, setT] = useState(0.5);
+  const [draggedPointIndex, setDraggedPointIndex] = useState(null);
+  const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -219,6 +245,50 @@ export default function BezierCurve() {
     setSelectedPoint(null);
   };
 
+  const getPointIndex = (x, y) => {
+    const index = points.findIndex(([px, py]) => {
+      const dx = px - x;
+      const dy = py - y;
+      return dx * dx + dy * dy <= 250; // increase the radius to 25 pixels
+    });
+    return index;
+  };
+
+  const handleTouchStart = (event) => {
+    const { clientX, clientY } = event.touches[0];
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    const pointIndex = getPointIndex(x, y);
+    if (pointIndex !== -1) {
+      setDragging(true);
+      setDraggedPointIndex(pointIndex);
+      window.addEventListener('touchmove', handleTouchMovePreventDefault, { passive: false });
+    }
+  };
+
+  const handleTouchMovePreventDefault = (event) => {
+    event.preventDefault();
+  };
+
+  const handleTouchMove = (event) => {
+    if (dragging) {
+      const { clientX, clientY } = event.touches[0];
+      const rect = canvasRef.current.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      const newPoints = [...points];
+      newPoints[draggedPointIndex] = [x, y];
+      setPoints(newPoints);
+    }
+  };
+  
+  const handleTouchEnd = () => {
+    setDragging(false);
+    setDraggedPointIndex(-1);
+    window.removeEventListener('touchmove', handleTouchMovePreventDefault);
+  };
+
   const playAnimation = () => {
     setAnimationPlaying(true);
     // increment t until animation is paused
@@ -234,7 +304,7 @@ export default function BezierCurve() {
   };
 
   const handleReset = () => {
-    setPoints([[20, 580], [250, 20], [650, 20], [880, 580]]);
+    setPoints(calculatePoints(screenWidth, screenHeight));
     setT(0.5);
     intervalRef.current && clearInterval(intervalRef.current);
     setAnimationPlaying(false);
@@ -265,16 +335,16 @@ export default function BezierCurve() {
         <meta name="keywords" content="portfolio, fireplank, tech, technology" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HStack spacing={10} marginBottom={3}>
+      <HStack spacing={[3,5]} marginBottom={3}>
         <Box>
           <Button onClick={() => { 
             if (animationPlaying) {
               clearInterval(intervalRef.current);
               setAnimationPlaying(false);
             } else playAnimation();
-          }} marginRight={2}>{animationPlaying ? "Pause" : "Play"}</Button>
+          }} marginRight={[1,2]}>{animationPlaying ? "Pause" : "Play"}</Button>
           <Menu>
-            <MenuButton as={Button} marginRight={2} rightIcon={<BsChevronDown />}>
+            <MenuButton as={Button} marginRight={[1,2]} rightIcon={<BsChevronDown />}>
                 Speed: {getSpeed()}
             </MenuButton>
             <MenuList>
@@ -285,7 +355,7 @@ export default function BezierCurve() {
           </Menu>
           <Button onClick={handleReset} bgColor="red.400" _hover={{ bg: "red.500" }}>Reset</Button>
         </Box>
-        <Slider aria-label='slider-ex-1' value={t * 100} width={250} onChange={(value) => setT(Math.round(value) / 100)}>
+        <Slider aria-label='slider-ex-1' value={t * 100} width={150} onChange={(value) => setT(Math.round(value) / 100)}>
           <SliderMark value={50}>
             t: {Math.round(t * 100) / 100}
           </SliderMark>
@@ -306,11 +376,14 @@ export default function BezierCurve() {
       </HStack>
       <canvas
         ref={canvasRef}
-        width={900}
-        height={600}
+        width={screenWidth}
+        height={screenHeight}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       />
     </Box>
   );
