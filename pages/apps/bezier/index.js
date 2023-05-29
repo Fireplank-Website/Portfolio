@@ -14,7 +14,6 @@ import { Box,
 import { useRef, useState, useEffect } from "react";
 import Modal from "../../../components/Modal";
 import { BsChevronDown, BsQuestionCircle } from "react-icons/bs";
-import { FaPlay } from 'react-icons/fa';
 import Head from "next/head";
 
 export default function BezierCurve() {
@@ -30,7 +29,6 @@ export default function BezierCurve() {
   ]);
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [t, setT] = useState(0.5);
-  const [animationId, setAnimationId] = useState(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
