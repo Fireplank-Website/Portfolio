@@ -112,7 +112,7 @@ const Contact = () => {
                         <Box className="contact__card" boxShadow={useColorModeValue("0 2px 16px hsla(219, 48%, 8%, .1)", "")} backgroundColor={useColorModeValue("white", "")}>
                             <Icon as={FaDiscord} size={40} className="contact__card-icon" _hover={{ cursor: 'default' }} />
                             <h3 className="contact__card-title">Discord</h3>
-                            <span className="contact__card-data">FirePlank#2995</span>
+                            <span className="contact__card-data">@fireplank</span>
                             <a href="https://discord.com/users/655020762796654592" target="_blank" rel="noreferrer" className="contact__button">
                                 Message me <AiOutlineArrowRight />
                             </a>
