@@ -15,6 +15,8 @@ import { FaTwitter, FaGithub } from 'react-icons/fa';
 import { AiOutlineMail } from 'react-icons/ai';
 import { LinkItems } from '../constants/constants';
 
+const currentYear = new Date().getFullYear();
+
 const SocialButton = ({
   children,
   label,
@@ -74,7 +76,7 @@ export default function LargeWithNewsletter() {
           <Stack spacing={6}>
             <Image alt="fireplank logo" src="/images/fireplank.png" w="3rem" h="3rem"/>
             <Text fontSize={'sm'}>
-              © 2022 FirePlank. All rights reserved
+              © {currentYear} FirePlank. All rights reserved
             </Text>
             <Stack direction={'row'} spacing={6}>
               <a href='https://twitter.com/FirePlank' target="_blank" rel="noopener noreferrer">
@@ -108,35 +110,3 @@ export default function LargeWithNewsletter() {
     </Box>
   );
 }
-
-// export default function Footer() {
-//     const router = useRouter();
-//     const usedPos = router.pathname == "/" ? "absolute" : "fixed";
-//     return (
-//       <Box
-//         zIndex={999}
-//         position={usedPos}
-//         padding="10px 10px 0px 10px"
-//         bottom={0}
-//         width="100%"
-//         bg={useColorModeValue('gray.100', 'gray.900')}
-//         color={useColorModeValue('gray.700', 'gray.200')}>
-//         <Container
-//           as={Stack}
-//           maxW={'100%'}
-//           py={4}
-//           direction="row"
-//           spacing={4}
-//           justify={{ base: 'center', md: 'space-between' }}
-//           align={{ base: 'center', md: 'center' }}>
-//           <Stack direction={'row'} spacing={6}>
-//             <Button variant={"ghost"} _hover={{ bg: 'gray.700', color: 'white' }} aria-label="home button" onClick={() => window.location = "/"}>Home</Button>
-//             <a href="mailto:contact@fireplank.xyz">
-//               <Button variant={"ghost"} _hover={{ bg: 'gray.700', color: 'white' }} leftIcon={<AiOutlineMail/>}>Contact</Button>
-//             </a>
-//           </Stack>
-//           <Text>© 2022 FirePlank. All rights reserved</Text>
-//         </Container>
-//       </Box>
-//     );
-//   }
